@@ -1,3 +1,6 @@
+#:________________________________________
+#  Copyright (C) Ivan Mar (sOkam!) : MIT :
+#:________________________________________
 # std dependencies
 import std/os
 # nstd dependencies
