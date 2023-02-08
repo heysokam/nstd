@@ -2,6 +2,7 @@
 #  Copyright (C) Ivan Mar (sOkam!) : MIT :
 #:________________________________________
 # std dependencies
+import std/os
 import std/strutils
 import std/strformat
 # nstd dependencies
