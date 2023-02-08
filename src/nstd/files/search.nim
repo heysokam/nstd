@@ -4,6 +4,7 @@
 # std dependencies
 import std/os
 import std/strutils
+import std/strformat
 # nstd dependencies
 import ../types
 
