@@ -20,7 +20,7 @@ skipdirs         = @[binDir, examplesDir, testsDir, docDir]
 #___________________
 # Build requirements
 requires "nim >= 1.6.10"      ## Latest stable version
-taskRequires "test", "print"  ## Require treeform/print only for tests
+# taskRequires "test", "print"  ## Require treeform/print only for tests
 
 
 #________________________________________

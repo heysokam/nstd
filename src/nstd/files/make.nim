@@ -3,18 +3,25 @@
 #:________________________________________
 # std dependencies
 import std/os
+import std/strformat
 # nstd dependencies
 import ../types
 
 #____________________________________
 # Make Directories (md)
-proc md *(d :str)=  #alias md="mkdir -v "
-  if dirExists(d): echo &":: Directory {d} already exists. Ignoring its creation."; return
-  try:             mkDir(d)#; echo &":: Created directory {d}"
-  except OSError:  quit &"::ERR Failed to make directory {d}"
-proc md *(d :str; o :bool) :str=  md(d); result = if o: d else: ""  # Alias for creation and also assignment to variables
-proc checkOrMkDir *(f:str)=
-  let d=splitFile(f).dir; if not dirExists(d): md d
+proc md *(trg :str) :void=  #alias md="mkdir -v "
+  if trg.dirExists: echo &":: Directory {trg} already exists. Ignoring its creation."; return
+  try:
+    when defined(nimscript):
+      trg.mkDir()      #; echo &":: Created directory {d}"
+    else:
+      when nimvm: trg.mkDir()
+      else:       trg.createDir()  #; echo &":: Created directory {d}"
+  except OSError:  quit &"::ERR Failed to make directory {trg}"
+
+proc checkOrMkDir *(trg :str) :void=
+  let dir = trg.splitFile.dir
+  if not dir.dirExists: md dir
 
 
 
