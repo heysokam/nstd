@@ -2,7 +2,7 @@
 #  Reid Engine : Copyright (C) Ivan Mar (sOkam!) : GNU GPLv3 or higher :
 #:______________________________________________________________________
 # Module dependencies
-import nstd/types
+import ./types
 
 #____________________
 type 

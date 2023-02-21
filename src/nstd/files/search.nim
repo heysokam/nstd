@@ -14,7 +14,7 @@ import ../types
 proc touch *(trg :str) :void=  
   ## Creates the target file if it doesn't exist.
   ## When nimscript: Uses touch on linux and Get-Item on windows
-  when nimvm:
+  when defined(nimscript):
     when defined linux:   exec &"touch {trg}"
     elif defined windows: exec &"Get-Item {trg}"
   else:  trg.open(mode = fmReadWriteExisting).close

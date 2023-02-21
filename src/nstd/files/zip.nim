@@ -11,6 +11,7 @@ import ../types
 # TODO: when nimvm: else:
 # Currently uses only nimvm
 
+##[
 proc zip_p (s,d :str) :void= # Zips files literally (absolute or relative, whatever is passed) (internal use only)
   try:             exec &"zip -vr {d} {s}"; echo &":: Created zip file {d} from the contents of {s}"
   except OSError:  quit &"::ERR Failed to create zip file {d} from {s}"
@@ -33,6 +34,7 @@ proc unzip*(f,d:str; ow:bool)=
   try:             exec &"unzip {o} -d {d} {f}"; echo &":: Extracted file {f} to folder {d}"
   except OSError:  quit &"::ERR Failed to extract file {f} to folder {d}"
 proc unzip*(f,d :str) :void=  unzip(f,d,true) # Assume overwrite when omitted
+]##
 
 # TODO:
 ##[

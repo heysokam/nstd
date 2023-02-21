@@ -1,7 +1,8 @@
 #:________________________________________
 #  Copyright (C) Ivan Mar (sOkam!) : MIT :
 #:________________________________________
+# External dependencies
+import pkg/chroma
 
-# Tools for Interoperability with C code.
-import ./C/compile ; export compile
-import ./C/address ; export address
+template caddr *(c :var Color) :ptr float32=  c.r.addr
+

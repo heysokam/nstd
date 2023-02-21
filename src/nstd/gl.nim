@@ -82,7 +82,7 @@ proc debug *(src :GLenum; typ :GLenum; id :GLuint; sev :GLenum; length :GLsizei;
   of   GLDebugSeverityMedium:          severity = "Medium"        # Major performance warnings, shader compilation/linking warnings, or the use of deprecated functionality
   of   GLDebugSeverityHigh:            severity = "High"          # All OpenGL Errors, shader compilation/linking errors, or highly-dangerous undefined behavior
   else: discard
-  logg &"OpenGL Debug {source}, {severity}, {typText}, {id.uint64}:\n:  {msg.toString(length)}"
+  log &"OpenGL Debug {source}, {severity}, {typText}, {id.uint64}:\n:  {msg.toString(length)}"
   bEnd.lineSep
 
 #____________________

@@ -15,8 +15,7 @@ proc md *(trg :str) :void=  #alias md="mkdir -v "
     when defined(nimscript):
       trg.mkDir()      #; echo &":: Created directory {d}"
     else:
-      when nimvm: trg.mkDir()
-      else:       trg.createDir()  #; echo &":: Created directory {d}"
+     trg.createDir()  #; echo &":: Created directory {d}"
   except OSError:  quit &"::ERR Failed to make directory {trg}"
 
 proc checkOrMkDir *(trg :str) :void=

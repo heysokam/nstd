@@ -3,10 +3,8 @@
 #:________________________________________
 
 #__________________________________________________
-# Tool: Logger
+# Tool: logger
 #____________________
 # Levels
 type LogLevel * = enum NoLog, Info, Warn, Error, Trace, Max
-converter toInt *(x :LogLevel) :int=  x.ord
-
 

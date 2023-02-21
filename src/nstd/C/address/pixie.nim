@@ -1,7 +1,7 @@
 #:________________________________________
 #  Copyright (C) Ivan Mar (sOkam!) : MIT :
 #:________________________________________
+# External dependencies
+import pkg/pixie
 
-# Tools for Interoperability with C code.
-import ./C/compile ; export compile
-import ./C/address ; export address
+template caddr *(i :Image) :ptr ColorRGBX=  i.data[0].addr

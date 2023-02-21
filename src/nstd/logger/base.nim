@@ -4,7 +4,7 @@
 # std dependencies
 import std/strformat
 # External dependencies
-# TODO: loggit or other alternative
+# TODO: logit or other alternative
 # Module dependencies
 import ./cfg
 import ./types
@@ -13,19 +13,21 @@ import ./types
 
 #______________________________
 # Logging
-proc loggP (lvl :int; msg :string) :void=
-  ## Internal use. Call logg instead
+proc logP (lvl :LogLevel; msg :string) :void=
+  ## Internal use. Call log instead
   if lvl <= cfg.logLvl: echo &"{msg}" else: discard
 
 #______________________________
-proc logg *(lvl :int; msg :string) :void=  # With log level selection
+proc log *(lvl :LogLevel; msg :string) :void=
+  ## Log with level selection
   case lvl
-  of nolog:  discard
-  of info:   loggP info,  &":: {msg}"
-  of warn:   loggP warn,  &"WRN:: {msg}"
-  of error:  loggP error, &"ERR:: {msg}"
-  of trace:  loggP trace, &"TRC:|| {msg}"
-  else:      loggP error, &"UNDEF:: {msg}" 
+  of NoLog:  discard
+  of Info:   logP Info,  &":: {msg}"
+  of Warn:   logP Warn,  &"WRN:: {msg}"
+  of Error:  logP Error, &"ERR:: {msg}"
+  of Trace:  logP Trace, &"TRC:|| {msg}"
+  else:      logP Error, &"UNDEF:: {msg}" 
 #______________________________
-proc logg *(msg :string) :void= logg info, &"{msg}"  # Shorthand: logg info, "message"
+proc log *(msg :string) :void= log Info, &"{msg}"
+  ## Shorthand: Info.log "message"
 #______________________________

@@ -42,6 +42,7 @@ proc cpLatest *(dir, file, trgDir,trgFile :str) :void=
   ## Copy latest version of dir/file into targetDir/targetFile
   cp file.latestIn(dir), trgDir/trgFile, "file"
 
+##[  TODO
 
 #TODO: remove bash dependency
 #____________________________________
@@ -55,7 +56,6 @@ proc cpUpd *(s,d :str) :void=
   try:             exec &"cp -vu {s} {d}"; echo &":: Copied {s} to {d}"
   except OSError:  quit &"::ERR Failed to copy {s} to {d}"
 
-##[  TODO
 #________________________________________
 proc cp *(src, trg :string) :void=
   # Get src file objects info

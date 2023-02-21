@@ -6,6 +6,7 @@ import std/strformat
 # nstd dependencies
 import ../types
 
+##[
 #TODO: remove bash dependency
 #____________________________________
 # Downloading
@@ -26,5 +27,5 @@ proc dl *(link :str, c:bool) :void=  # Download without clobbing when c=false
     exec &"wget {nc} {link}"
     echo &":: Downloaded file from link: {link}"
   except OSError:  quit &"::ERR Failed to download file from {link}"
-
+]##
 
