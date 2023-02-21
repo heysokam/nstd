@@ -5,13 +5,12 @@
 import std/times
 import std/strformat
 # External dependencies
-import pkg/opengl  # Cannot be taken from render/gl.nim, because of cyclic dep hell
-# Engine dependencies
-import ../../cfg
-import ../../files/io
-import ../../render/types/gl
+import pkg/opengl  # TODO: remove and load from our gl.nim
 # Module dependencies
+import ../gl
+import ../io
 import ../format
+import ./cfg
 import ./base
 
 #______________________________
@@ -40,31 +39,31 @@ const glParamT :seq[tuple[id :GLenum, name, typ :string]]= @[
   (                          GL_STEREO,                           "GL_STEREO", "bool"), #11
 ]
 #______________________________
-proc loggGL *(msg :string; nl :bool= true) :void= 
-  LoggGLfile.append(if not nl: msg else: msg & "\n")
+proc loggGL *(msg, file :string; nl :bool= true) :void= 
+  file.append(if not nl: msg else: msg & "\n")
   msg.logg
 #______________________________
-proc loggGLparms *() :void=
-  blockStart().loggGL
-  "GL Context Parameters:".loggGL
+proc loggGLparms *(file :string) :void=
+  blockStart().loggGL(file)
+  "GL Context Parameters:".loggGL(file)
   for param in glParamT:
     if param.typ in ["int"]:  # Integers: The parameter will be one int
       var v :GLint= 0
-      glGetIntegerv(param.id, v.caddr)
-      (&"{param.name} {v}").loggGL
+      gl.getIntegerv(param.id, v.caddr)
+      (&"{param.name} {v}").loggGL(file)
     elif param.typ in ["int2"]: # Int2 : The parameter will be an array of two ints
       var arr :array[2, GLint]
-      glGetIntegerv(param.id, arr[0].addr);
-      (&"{param.name} {arr[0]} {arr[1]}").loggGL
+      gl.getIntegerv(param.id, arr[0].addr);
+      (&"{param.name} {arr[0]} {arr[1]}").loggGL(file)
     elif param.typ in ["bool"]: # bool : The parameter will be true/false
       var b :GLboolean
-      glGetBooleanv(param.id, b.addr)
-      (&"{param.name} {b}").loggGL
+      gl.getBooleanv(param.id, b.addr)
+      (&"{param.name} {b}").loggGL(file)
     else: continue
-  blockEnd().loggGL
+  blockEnd().loggGL(file)
 #______________________________
-proc loggGLRestartFile *() :void= 
-  LoggGLfile.writeFile(&"{blockStart()}\n:: Local time {now()}\n")
+proc loggGLRestartFile *(file :string) :void= 
+  file.writeFile(&"{blockStart()}\n:: Local time {now()}\n")
 #______________________________
-proc loggGLerr *(msg :string) :void= msg.loggGL; stderr.write(msg)
+proc loggGLerr *(msg, file :string) :void= msg.loggGL(file); stderr.write(msg)
 #______________________________

@@ -5,9 +5,8 @@
 import std/strformat
 # External dependencies
 # TODO: loggit or other alternative
-# Engine dependencies
-import ../../cfg
 # Module dependencies
+import ./cfg
 import ./types
 
 ## TODO: Use std/terminal  colors !!

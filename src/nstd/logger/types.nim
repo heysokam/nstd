@@ -6,7 +6,7 @@
 # Tool: Logger
 #____________________
 # Levels
-type LogLevel * = enum nolog, info, warn, error, trace, maxloglvl
-converter toInt *(x :LogLevel) :int= x.ord
+type LogLevel * = enum NoLog, Info, Warn, Error, Trace, Max
+converter toInt *(x :LogLevel) :int=  x.ord
 
 

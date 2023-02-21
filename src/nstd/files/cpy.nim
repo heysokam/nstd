@@ -55,3 +55,23 @@ proc cpUpd *(s,d :str) :void=
   try:             exec &"cp -vu {s} {d}"; echo &":: Copied {s} to {d}"
   except OSError:  quit &"::ERR Failed to copy {s} to {d}"
 
+##[  TODO
+#________________________________________
+proc cp *(src, trg :string) :void=
+  # Get src file objects info
+  if not src.dirExists and not src.fileExists: return
+  let sinfo = src.getFileInfo(true)
+  let srcf  = sinfo.kind == pcFile or sinfo.kind == pcLinkToFile  # src is file or link to file
+  let srcd  = sinfo.kind == pcDir  or sinfo.kind == pcLinkToDir   # src is dir  or link to dir
+  # Get trg file objects info
+  let tinfo = trg.getFileInfo(true)
+  let trgf  = tinfo.kind == pcFile or tinfo.kind == pcLinkToFile  # trg is file or link to file
+  let trgd  = tinfo.kind == pcDir  or tinfo.kind == pcLinkToDir   # trg is dir  or link to dir 
+  # Do the copying
+  if   srcf and trgf: copyFile src, trg
+  elif srcf and trgd: copyFileToDir src, trg
+  elif srcd and trgd: copyDir src, trg
+  else: return
+]##
+
+

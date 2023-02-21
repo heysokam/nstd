@@ -22,6 +22,4 @@ proc rm *(src, typ :str) :void=  #alias rm="rm -rf "
   except OSError:  quit &"::ERR Failed to remove {src}"
 
 proc rm *(src :str) :void= src.rm("file")
-  
-
 

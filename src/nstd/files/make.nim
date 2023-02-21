@@ -23,5 +23,3 @@ proc checkOrMkDir *(trg :str) :void=
   let dir = trg.splitFile.dir
   if not dir.dirExists: md dir
 
-
-

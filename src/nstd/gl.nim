@@ -125,6 +125,8 @@ const CompileStatus             * = GL_COMPILE_STATUS
 const InfoLogLength             * = GL_INFO_LOG_LENGTH
 const LinkStatus                * = GL_LINK_STATUS
 const ValidateStatus            * = GL_VALIDATE_STATUS
+const getIntegerv               * = glGetIntegerv
+const getBooleanv               * = glGetBooleanv
 
 #____________________
 # Drawing mode
