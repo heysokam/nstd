@@ -19,7 +19,9 @@ skipdirs         = @[binDir, examplesDir, testsDir, docDir]
 
 #___________________
 # Build requirements
-requires "nim >= 1.6.10"      ## Latest stable version
+requires "nim >= 1.6.10"   ## Latest stable version
+requires "opengl"          ## Official OpenGL bindings
+requires "chroma"          ## Color manipulation
 # taskRequires "test", "print"  ## Require treeform/print only for tests
 
 
@@ -37,3 +39,4 @@ proc runTest (file :string) :void=  file.runFile(testsDir)
   ## Runs the given test file. Assumes the file is stored in the default testsDir folder
 proc runExample (file :string) :void=  file.runFile(examplesDir)
   ## Runs the given test file. Assumes the file is stored in the default testsDir folder
+

@@ -11,6 +11,10 @@ import ./nstd/convert ; export convert   ## Type conversion tools
 import ./nstd/iter    ; export iter      ## Extra Iterators
 import ./nstd/macros  ; export macros    ## Extra Macros
 import ./nstd/C       ; export C         ## C interoperability tools
+import ./nstd/logger  ; export logger    ## Logging interface for functionality from other tools
+import ./nstd/format  ; export format    ## Tools for formatting of text on console and logs
+import ./nstd/time    ; export time      ## Ergonomic helpers for managing time
+import ./nstd/node    ; export node      ## Node type and functionality
 
 # WRN
 # ./nstd/auto is not exported automatically. 
