@@ -9,7 +9,6 @@ import nstd            ## Connector to all modules (except ntsd/auto)
 import nstd/types      ## System type aliases
 import nstd/procs      ## System proc aliases
 import nstd/refs       ## System ref extensions
-import nstd/io         ## File Input/Output proc aliases
 import nstd/dirs       ## Tools for dir management
 import nstd/convert    ## Type conversion tools
 import nstd/iter       ## Extra Iterators

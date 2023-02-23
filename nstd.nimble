@@ -1,3 +1,7 @@
+#:________________________________________
+#  Copyright (C) Ivan Mar (sOkam!) : MIT :
+#:________________________________________
+
 #___________________
 # Package
 packageName   = "nstd"
@@ -20,8 +24,6 @@ skipdirs         = @[binDir, examplesDir, testsDir, docDir]
 #___________________
 # Build requirements
 requires "nim >= 1.6.10"   ## Latest stable version
-requires "opengl"          ## Official OpenGL bindings
-requires "chroma"          ## Color manipulation
 # taskRequires "test", "print"  ## Require treeform/print only for tests
 
 

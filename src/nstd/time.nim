@@ -2,7 +2,7 @@
 #  Copyright (C) Ivan Mar (sOkam!) : MIT :
 #:________________________________________
 # std dependencies
-import std/times ; export Time, Duration, initDuration, `-`, `+=`, `<=`, `-=`, `<`
+import std/times ; export Time, Duration, initDuration, `-`, `+=`, `<=`, `-=`, `<`, `+`
 # Module dependencies
 import ./types
 

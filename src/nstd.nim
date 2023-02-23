@@ -5,7 +5,6 @@
 import ./nstd/types   ; export types     ## System type aliases
 import ./nstd/procs   ; export procs     ## System proc aliases
 import ./nstd/refs    ; export refs      ## System ref extensions
-import ./nstd/io      ; export io        ## File Input/Output proc aliases
 import ./nstd/dirs    ; export dirs      ## Tools for dir management
 import ./nstd/convert ; export convert   ## Type conversion tools
 import ./nstd/iter    ; export iter      ## Extra Iterators
