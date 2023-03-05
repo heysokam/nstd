@@ -19,3 +19,13 @@ macro upperType *(t :typedesc) :untyped=  t.getImpl()[^1]
 func upperType *[T](val :T) :typedesc=  val.distinctBase.type
   ## Gets the type from which the typedesc T of val is being aliased.
 
+macro getLitName *(e :untyped) :untyped= newLit($e)
+  ## Generates a newLit string from the given input.
+  ## e.g. Convert GLEnum, which is a const distinct uint32,
+  ##      to its string name representation at compile time.
+  ##      This example is not possible without this macro,
+  ##      because `$` and similars dispatch the uint or its value, and not the variable name.
+
+# TODO: TableEntry generator
+# template genEntry (entry :GLEnum) :untyped=  entry : getLitName(entry)
+
