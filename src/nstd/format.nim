@@ -1,6 +1,6 @@
-#:________________________________________
-#  Copyright (C) Ivan Mar (sOkam!) : MIT :
-#:________________________________________
+#:____________________________________________________
+#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
+#:____________________________________________________
 
 #____________________
 type LineSeparator * = enum bStart, bEnd, cStart, cEnd, genericSep  # b = block ; c = category
@@ -23,6 +23,9 @@ proc lineSep *() :void= lineSep(genericSep)
 
 
 #____________________
-template reprb *[T](n :T) :string= cast[ByteAddress](n.addr).repr
-template repra *[T](n :T) :string= n.addr.repr & " " & n.reprb
-#____________________
+proc reprb *[T](n :var T) :string=  cast[ByteAddress](n.addr).repr
+  ## Returns the string representation of an address.
+proc repra *[T](n :var T) :string=  n.addr.repr & " " & n.reprb
+  ## Returns the string representation of an address.
+  ## Same as reprb, with better formatting
+

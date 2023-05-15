@@ -1,6 +1,6 @@
-#:________________________________________
-#  Copyright (C) Ivan Mar (sOkam!) : MIT :
-#:________________________________________
+#:____________________________________________________
+#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
+#:____________________________________________________
 # std dependencies
 import std/macros
 import std/typetraits

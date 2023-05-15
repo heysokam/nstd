@@ -1,6 +1,6 @@
-#:________________________________________
-#  Copyright (C) Ivan Mar (sOkam!) : MIT :
-#:________________________________________
+#:____________________________________________________
+#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
+#:____________________________________________________
 
 import ./nstd/types   ; export types     ## System type aliases
 import ./nstd/procs   ; export procs     ## System proc aliases

@@ -23,7 +23,7 @@ skipdirs         = @[binDir, examplesDir, testsDir, docDir]
 
 #___________________
 # Build requirements
-requires "nim >= 1.6.10"   ## Latest stable version
+requires "nim >= 1.6.12"   ## Latest stable version
 # taskRequires "test", "print"  ## Require treeform/print only for tests
 
 
@@ -33,7 +33,7 @@ requires "nim >= 1.6.10"   ## Latest stable version
 import std/os
 import std/strformat
 #___________________
-let nimcr = &"nim c -r --outdir:{binDir}"
+let nimcr = &"nimble c -r --outdir:{binDir}"
   ## Compile and run, outputting to binDir
 proc runFile (file, dir :string) :void=  exec &"{nimcr} {dir/file}"
   ## Runs file from the given dir, using the nimcr command

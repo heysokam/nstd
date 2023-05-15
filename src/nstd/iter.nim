@@ -1,6 +1,6 @@
-#:________________________________________
-#  Copyright (C) Ivan Mar (sOkam!) : MIT :
-#:________________________________________
+#:____________________________________________________
+#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
+#:____________________________________________________
 
 iterator twoD *[T](data :var openarray[T]; width, height :int) :var T=
   ## Iterate through a 2D array, and yield each item as modifiable (like mitems)
