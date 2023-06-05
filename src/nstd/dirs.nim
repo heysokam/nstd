@@ -17,3 +17,4 @@ template projectDir *() :string=
   ## even if called from an imported file.
   when nimvm: projectDir()
   else:       getProjectPath()
+

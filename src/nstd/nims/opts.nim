@@ -30,6 +30,6 @@ proc isVerbose *() :bool=
 func isLinux *() :bool=
   result=false; when defined(posix):   result = true
 #____________________________________
-func   isWin*() :bool= 
+func isWin*() :bool= 
   result=false; when defined(windows): result = true
 

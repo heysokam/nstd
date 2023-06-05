@@ -2,13 +2,42 @@
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
 #:____________________________________________________
 
+
+#_______________________________________
+# Variable
+#_____________________________
+template mvar *(t: typed) :untyped=
+  ## Returns a (mutable) variable for the input `t`.
+  ## Useful for passing tuples as `:var tuple`, without requiring the extra variable step.
+  var mutName = t; mutName
+
+
+#_______________________________________
+# External
+#___________________
+# Chroma
+import pkg/chroma
+template caddr *(c :var Color) :ptr float32=  c.r.addr
+# Pixie
+import pkg/pixie
+template caddr *(i :Image) :ptr ColorRGBX=  i.data[0].addr
+# Vmath
+import pkg/vmath
+template caddr *(m :var Mat4) :ptr float32=   m[0,0].addr
+template caddr *(v :var Vec2) :ptr float32=   v.x.addr
+template caddr *(v :var Vec3) :ptr float32=   v.x.addr
+template caddr *(v :var Vec4) :ptr float32=   v.x.addr
+
+
+
+#_______________________________________
+# System
 #___________________
 template caddr    *(s :cstring)      :cstringArray=  cast[cstringArray](s.unsafeAddr)
 template caddr    *(n :int32)        :ptr int32=     n.unsafeaddr
 template caddr    *(n :uint32)       :ptr uint32=    n.unsafeaddr
 template caddr    *(n :float32)      :ptr float32=   n.unsafeaddr
 template caddr *[T](a :openArray[T]) :ptr T=         a[0].unsafeaddr
-
 #___________________
 template vaddr *(val :auto) :untyped=
   ## Returns the `addr` of anything, through a temp val.

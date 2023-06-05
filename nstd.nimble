@@ -5,9 +5,9 @@
 #___________________
 # Package
 packageName   = "nstd"
-version       = "0.0.0"
+version       = "0.1.0"
 author        = "sOkam"
-description   = "Nim Non-Standard stdlib Extensions"
+description   = "Non-Standard stdlib Extensions"
 license       = "MIT"
 
 
@@ -38,7 +38,5 @@ let nimcr = &"nimble c -r --outdir:{binDir}"
 proc runFile (file, dir :string) :void=  exec &"{nimcr} {dir/file}"
   ## Runs file from the given dir, using the nimcr command
 proc runTest (file :string) :void=  file.runFile(testsDir)
-  ## Runs the given test file. Assumes the file is stored in the default testsDir folder
-proc runExample (file :string) :void=  file.runFile(examplesDir)
   ## Runs the given test file. Assumes the file is stored in the default testsDir folder
 

@@ -52,3 +52,4 @@ proc countItems *[T](node :Node[T]) :u64=
   elif node.hasData:
     result += node.data.len
   else: result = 0
+
