@@ -1,5 +1,4 @@
-# Nim non-standard stdlib extensions
-
+![nstd](./res/gh_banner.png)
 Collection of general purpose tools to extend Nim's std/ library.  
 It doesn't try to be standard. Just useful.  
 
