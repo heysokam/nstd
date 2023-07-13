@@ -3,21 +3,26 @@
 #:____________________________________________________
 
 
-import ./nstd/types     ; export types     ## System type aliases
-import ./nstd/address   ; export address   ## Mem Addresses tools
-import ./nstd/alias     ; export alias     ## System proc aliases
-import ./nstd/compile   ; export compile   ## Nim as Buildsystem system tools
-import ./nstd/convert   ; export convert   ## Type conversion tools
-import ./nstd/dirs      ; export dirs      ## Tools for dir management
-import ./nstd/format    ; export format    ## Tools for formatting of text on console and logs
-import ./nstd/git       ; export git       ## Tools for git management
-import ./nstd/iter      ; export iter      ## Extra Iterators
-import ./nstd/logger    ; export logger    ## Logging interface for functionality from other tools
-import ./nstd/macros    ; export macros    ## Extra Macros
-import ./nstd/node      ; export node      ## Node type and functionality
-import ./nstd/size      ; export size      ## Size tools
-import ./nstd/time      ; export time      ## Ergonomic helpers for managing time
-import ./nstd/typetools ; export typetools ## General tools for managing types
+# System aliases
+import ./nstd/types     ; export types
+import ./nstd/alias     ; export alias
+# Extensions
+import ./nstd/address   ; export address
+import ./nstd/binary    ; export binary
+import ./nstd/compile   ; export compile
+import ./nstd/convert   ; export convert
+import ./nstd/defines   ; export defines
+import ./nstd/dirs      ; export dirs
+import ./nstd/format    ; export format
+import ./nstd/git       ; export git
+import ./nstd/iter      ; export iter
+import ./nstd/logger    ; export logger
+import ./nstd/macros    ; export macros
+import ./nstd/node      ; export node
+import ./nstd/opts      ; export opts
+import ./nstd/size      ; export size
+import ./nstd/time      ; export time
+import ./nstd/typetools ; export typetools
 
 
 # WRN

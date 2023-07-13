@@ -6,6 +6,9 @@ import std/times ; export Time, Duration, initDuration, `-`, `+=`, `<=`, `-=`, `
 # Module dependencies
 import ./types
 
+# TODO:
+# Remember std/monotimes
+
 #____________________
 # Tools for calculating time
 proc msec     *(t :Time)          :f64=  t.nanosecond/1_000_000
