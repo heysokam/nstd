@@ -20,6 +20,7 @@ import ./nstd/logger    ; export logger
 import ./nstd/macros    ; export macros
 import ./nstd/node      ; export node
 import ./nstd/opts      ; export opts
+import ./nstd/paths     ; export paths
 import ./nstd/size      ; export size
 import ./nstd/time      ; export time
 import ./nstd/typetools ; export typetools
