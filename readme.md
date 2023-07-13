@@ -1,7 +1,7 @@
 # Nim non-standard stdlib extensions
 
-Collection of general purpose tools to extend Nim's std/ library.
-It doesn't try to be standard. Just useful.
+Collection of general purpose tools to extend Nim's std/ library.  
+It doesn't try to be standard. Just useful.  
 
 ```nim
 import nstd            ## Connector to all modules (except ntsd/auto)
@@ -22,6 +22,7 @@ import nstd/logger     ## Logging interface for functionality from other tools
 import nstd/macros     ## Extra Macros
 import nstd/node       ## Node type and functionality
 import nstd/opts       ## CLI option tools
+import nstd/paths      ## os.paths missing procs (borrow from string) and extensions
 import nstd/size       ## sizeof() extensions
 import nstd/time       ## Ergonomic helpers for managing time
 
@@ -30,6 +31,5 @@ import nstd/time       ## Ergonomic helpers for managing time
 import nstd/auto       ## Converters and other automatic or non-explicit behavior
 ```
 
-**License**:
-Copyright © `Ivan Mar (sOkam!)` | MIT License (MIT)
+**License**:   MIT | Copyright © `Ivan Mar (sOkam!)`
 
