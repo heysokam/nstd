@@ -19,5 +19,5 @@ when not def.NimScript:
 #_____________________________
 func read *(buf :string; _:typedesc[string]; startp,endp :SomeInteger) :string {.inline.}=
   ## Reads a string from a string bytebuffer, from `startp` to `endp` positions.
-  buf[i ..< min(s.len, startp+endp)]
+  buf[startp ..< min(buf.len, startp+endp)]
 

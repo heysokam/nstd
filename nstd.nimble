@@ -7,7 +7,7 @@ import std/strformat
 #___________________
 # Package
 packageName   = "nstd"
-version       = "0.1.2"
+version       = "0.1.4"
 author        = "sOkam"
 description   = "Non-Standard stdlib Extensions"
 license       = "MIT"
