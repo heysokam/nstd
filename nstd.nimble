@@ -3,15 +3,13 @@
 #:____________________________________________________
 import std/strformat
 
-
 #___________________
 # Package
 packageName   = "nstd"
-version       = "0.1.4"
+version       = "0.1.5"
 author        = "sOkam"
-description   = "Non-Standard stdlib Extensions"
+description   = "n*std | Non-Standard stdlib Extensions"
 license       = "MIT"
-
 
 #___________________
 # Folders
@@ -22,11 +20,9 @@ let examplesDir  = "examples"
 let docDir       = "doc"
 skipdirs         = @[binDir, examplesDir, testsDir, docDir]
 
-
 #___________________
 # Build requirements
-requires "nim >= 1.9.5"
-
+requires "nim >= 2.0.0"
 
 #___________________
 task push, "Internal:  Pushes the git repository, and orders to create a new git tag for the package, using the latest version.":
