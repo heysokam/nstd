@@ -11,25 +11,6 @@ template mvar *(t: typed) :untyped=
   ## Useful for passing tuples as `:var tuple`, without requiring the extra variable step.
   var mutName = t; mutName
 
-
-#_______________________________________
-# External
-#___________________
-# Chroma
-import pkg/chroma
-template caddr *(c :var Color) :ptr float32=  c.r.addr
-# Pixie
-import pkg/pixie
-template caddr *(i :Image) :ptr ColorRGBX=  i.data[0].addr
-# Vmath
-import pkg/vmath
-template caddr *(m :var Mat4) :ptr float32=   m[0,0].addr
-template caddr *(v :var Vec2) :ptr float32=   v.x.addr
-template caddr *(v :var Vec3) :ptr float32=   v.x.addr
-template caddr *(v :var Vec4) :ptr float32=   v.x.addr
-
-
-
 #_______________________________________
 # System
 #___________________

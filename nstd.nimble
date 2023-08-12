@@ -6,7 +6,7 @@ import std/strformat
 #___________________
 # Package
 packageName   = "nstd"
-version       = "0.1.5"
+version       = "0.1.6"
 author        = "sOkam"
 description   = "n*std | Non-Standard stdlib Extensions"
 license       = "MIT"
