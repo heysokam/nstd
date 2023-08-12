@@ -96,7 +96,7 @@ func snakeToCamel  (s :string) :string=
     else           : result.add ch
 func snakeToScream (s :string) :string=
   for ch in s:
-    if ch == '_' : continue
+    if ch == '_' : result.add ch
     else         : result.add ch.toUpperAscii
 func snakeTo (s :string; trg :CaseType) :string=
   case trg
