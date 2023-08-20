@@ -40,9 +40,9 @@ type CaseType * = enum
   PascalCase, camelCase, snake_case, SCREAM_CASE
 #_______________________________________
 # First Character only
-func firstLower (s :string) :string=  result = s; result[0].toLowerAscii()
+func firstLower (s :string) :string=  result = s; result[0] = result[0].toLowerAscii()
   ## Returns the string with its first character converted to lowercase
-func firstUpper (s :string) :string=  result = s; result[0].toUpperAscii()
+func firstUpper (s :string) :string=  result = s; result[0] = result[0].toUpperAscii()
   ## Returns the string with its first character converted to Uppercase
 #_______________________________________
 # PascalCase
@@ -59,9 +59,9 @@ func pascalToScream (s :string) :string=
 func pascalTo (s :string; trg :CaseType) :string=
   case trg
   of PascalCase  : result = s
-  of camelCase   : s.pascalToCamel()
-  of snake_case  : s.pascalToSnake()
-  of SCREAM_CASE : s.pascalToScream()
+  of camelCase   : result = s.pascalToCamel()
+  of snake_case  : result = s.pascalToSnake()
+  of SCREAM_CASE : result = s.pascalToScream()
 #_______________________________________
 # camelCase
 func camelToPascal (s :string) :string=
@@ -76,10 +76,10 @@ func camelToScream (s :string) :string=
     else               : result.add ch.toUpperAscii()
 func camelTo (s :string; trg :CaseType) :string=
   case trg
-  of PascalCase  : camelToPascal()
+  of PascalCase  : result = s.camelToPascal()
   of camelCase   : result = s
-  of snake_case  : camelToSnake()
-  of SCREAM_CASE : camelToScream()
+  of snake_case  : result = s.camelToSnake()
+  of SCREAM_CASE : result = s.camelToScream()
 #_______________________________________
 # snake_case
 func snakeToPascal (s :string) :string=
@@ -100,10 +100,10 @@ func snakeToScream (s :string) :string=
     else         : result.add ch.toUpperAscii
 func snakeTo (s :string; trg :CaseType) :string=
   case trg
-  of PascalCase  : s.snakeToPascal()
-  of camelCase   : s.snakeToCamel()
+  of PascalCase  : result = s.snakeToPascal()
+  of camelCase   : result = s.snakeToCamel()
   of snake_case  : result = s
-  of SCREAM_CASE : s.snakeToScream()
+  of SCREAM_CASE : result = s.snakeToScream()
 #_______________________________________
 # SCREAM_CASE
 func screamToPascal (s :string) :string=
@@ -124,17 +124,17 @@ func screamToSnake  (s :string) :string=
     else: result.add ch
 func screamTo (s :string; trg :CaseType) :string=
   case trg
-  of PascalCase  : s.screamToPascal()
-  of camelCase   : s.screamToCamel()
-  of snake_case  : s.screamToSnake()
+  of PascalCase  : result = s.screamToPascal()
+  of camelCase   : result = s.screamToCamel()
+  of snake_case  : result = s.screamToSnake()
   of SCREAM_CASE : result = s
 #_______________________________________
 # External Interface
 func change *(s :string; src,trg :CaseType) :string=
   if s == "": return s
   case src
-  of PascalCase:  s.pascalTo(trg)
-  of camelCase:   s.camelTo(trg)
-  of snake_case:  s.snakeTo(trg)
-  of SCREAM_CASE: s.screamTo(trg)
+  of PascalCase:  result = s.pascalTo(trg)
+  of camelCase:   result = s.camelTo(trg)
+  of snake_case:  result = s.snakeTo(trg)
+  of SCREAM_CASE: result = s.screamTo(trg)
 
