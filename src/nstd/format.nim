@@ -110,13 +110,13 @@ func screamToPascal (s :string) :string=
   var nextHi = true # start true so the first character is kept as Uppercase
   for ch in s:
     if ch == '_' : nextHi = true; continue
-    elif nextHi  : result.add ch.toUpperAscii
+    elif nextHi  : result.add ch.toUpperAscii; nextHi = false
     else         : result.add ch.toLowerAscii
 func screamToCamel  (s :string) :string=
   var nextHi = false # start false so the first character is converted to lowercase
   for ch in s:
     if ch == '_' : nextHi = true; continue
-    elif nextHi  : result.add ch.toUpperAscii
+    elif nextHi  : result.add ch.toUpperAscii; nextHi = false
     else         : result.add ch.toLowerAscii
 func screamToSnake  (s :string) :string=
   for ch in s:
