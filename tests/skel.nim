@@ -1,10 +1,14 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
+# std dependencies
+import std/unittest
+# n*std dependencies
+import nstd
+# tests dependencies
+import ./cfg
 
 
 #____________________________________________________
-const NimScript * = defined(nimscript) or defined(js)
-  ## True for the nimscript and js targets.
-  ## Same as `WeirdTarget` from std, but with a clearer name pointing at the -language- features.
-
+test cfg.Prefix&"Skel":
+  check true

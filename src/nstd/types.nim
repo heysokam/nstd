@@ -1,5 +1,5 @@
 #:____________________________________________________
-#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
+#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
 
 # Zig inspired type aliases
@@ -15,4 +15,7 @@ type f32  * = float32
 type f64  * = float64
 type str  * = string
 type cstr * = cstring
+
+type ByteAddr * = uint
+  ## Alias for ByteAddress, which was deprecated in favor of `uint`, which is not readable
 

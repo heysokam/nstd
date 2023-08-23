@@ -1,5 +1,5 @@
 #:____________________________________________________
-#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
+#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
 # Module dependencies
 import ./types

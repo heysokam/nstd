@@ -4,30 +4,12 @@
 # std dependencies
 import std/strformat
 import std/strutils
+# n*std dependencies
+import ./types
 
 
 #____________________
-type LineSeparator * = enum bStart, bEnd, cStart, cEnd, genericSep  # b = block ; c = category
-#____________________
-template blockStart *() :string=  "____________________"
-template blockEnd   *() :string=  "____________________"
-template catStart   *() :string=  ":: _________________"
-template catEnd     *() :string=  ":: _______________::"
-#____________________
-proc lineSep *(sep :LineSeparator) :void= 
-  case sep
-  of   bStart:     echo blockStart()
-  of   bEnd:       echo blockEnd()
-  of   cStart:     echo catStart()
-  of   cEnd:       echo catEnd()
-  of   genericSep: echo blockStart()
-#____________________
-proc lineSep *() :void= lineSep(genericSep)
-#____________________
-
-
-#____________________
-proc reprb *[T](n :var T) :string=  cast[ByteAddress](n.addr).repr
+proc reprb *[T](n :var T) :string=  cast[ByteAddr](n.addr).repr
   ## Returns the string representation of an address.
 proc repra *[T](n :var T) :string=  n.addr.repr & " " & n.reprb
   ## Returns the string representation of an address.
@@ -41,9 +23,9 @@ type CaseType * = enum
   PascalCase, camelCase, snake_case, SCREAM_CASE
 #_______________________________________
 # First Character only
-func firstLower (s :string) :string=  result = s; result[0] = result[0].toLowerAscii()
+func firstLower *(s :string) :string=  result = s; result[0] = result[0].toLowerAscii()
   ## Returns the string with its first character converted to lowercase
-func firstUpper (s :string) :string=  result = s; result[0] = result[0].toUpperAscii()
+func firstUpper *(s :string) :string=  result = s; result[0] = result[0].toUpperAscii()
   ## Returns the string with its first character converted to Uppercase
 #_______________________________________
 # PascalCase

@@ -1,5 +1,5 @@
 #:____________________________________________________
-#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
+#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
 # std dependencies
 import std/times ; export Time, Duration, initDuration, `-`, `+=`, `<=`, `-=`, `<`, `+`

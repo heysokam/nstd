@@ -10,6 +10,11 @@ import ./cfg
 
 
 #____________________________________________________
+test cfg.Prefix&"String Case Formatting: First Character":
+  check "abc1_3AV_asd".firstUpper() == "Abc1_3AV_asd"
+  check "Abc1_3AV_asd".firstLower() == "abc1_3AV_asd"
+
+#____________________________________________________
 test cfg.Prefix&"String Case Formatting: SCREAM_CASE":
   check "MAKE_API_VERSION".change(SCREAM_CASE, SCREAM_CASE) ==  "MAKE_API_VERSION"
   check "MAKE_API_VERSION".change(SCREAM_CASE, PascalCase)  ==  "MakeApiVersion"

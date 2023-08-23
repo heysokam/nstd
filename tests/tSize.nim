@@ -1,8 +1,21 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
+# std dependencies
+import std/unittest
+# n*std dependencies
+import nstd
+# tests dependencies
+import ./cfg
 
 
+#____________________________________________________
+test cfg.Prefix&"Size: Any Type":
+  check true
+test cfg.Prefix&"Size: Alignment":
+  check true
+
+##[
 #_______________________________________
 # Size Calculation
 #___________________
@@ -34,4 +47,5 @@ func alignTo *[T :SomeInteger|SomeUnsignedInt](num, to :T) :T=
 #_____________________________
 func alignTo4 *[T :SomeInteger](num :T) :T=  num.alignTo(4)
   ## Aligns the given `num` to be a multiple of 4.
+]##
 
