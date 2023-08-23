@@ -1,6 +1,7 @@
 #:____________________________________________________
-#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
+#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
+# std dependencies
 import std/strformat
 import std/strutils
 
