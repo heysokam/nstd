@@ -8,44 +8,63 @@ import nstd
 # tests dependencies
 import ./cfg
 
+type TestType = object
+  data :array[42,char]
 
 #____________________________________________________
-test cfg.Prefix&"Size: Any Type":
-  check true
+test cfg.Prefix&"Size: Any Type.size":
+  check  int16.size == uint64( 2 )
+  check uint16.size == uint64( 2 )
+  check  int32.size == uint64( 4 )
+  check uint32.size == uint64( 4 )
+  check  int64.size == uint64( 8 )
+  check uint64.size == uint64( 8 )
+  check TestType.size == uint64( 42 )
+
+#____________________________________________________
+test cfg.Prefix&"Size: Any value.size":
+  let v1 :int16= 1
+  let v2 :int32= 2
+  let v3 :int64= 3
+  let t1 = TestType()
+  check v1.size == uint64( 2 )
+  check v2.size == uint64( 4 )
+  check v3.size == uint64( 8 )
+  check t1.size == uint64( 42 )
+
+#____________________________________________________
+test cfg.Prefix&"Size: Any openArray.size":
+  let s2 :array[3,char] =  ['a','b','c']
+  let s1 :seq[char]     = @['a','b','c']
+  check    s1.size == uint64( 3 )
+  check    s2.size == uint64( 3 )
+  check s1.csizeof == cint( 3 )
+  check s2.csizeof == cint( 3 )
+
+#____________________________________________________
 test cfg.Prefix&"Size: Alignment":
-  check true
-
-##[
-#_______________________________________
-# Size Calculation
-#___________________
-func size *[T](t :typedesc[T]) :uint64=  uint64( sizeof(t) )
-  ## Returns the size in bytes of the given type. Alias for sizeof()
-func size *[T](n :T) :uint64=  uint64( sizeof(n) )
-  ## Returns the size in bytes of the given type. Alias for sizeof()
-func size *[T](v :seq[T]) :uint64=  uint64( v.len * sizeof(v[0]) )
-  ## Returns the size in bytes of the given seq
-#_____________________________
-template csizeof *[T](arr :openArray[T]) :cint=  (arr[0].sizeof * arr.len).cint
-  ## Returns the size of the array/seq in bytes, as a cint.
-
-
-#_______________________________________
-# Alignment
-#___________________
-func alignTo *[T :SomeInteger|SomeUnsignedInt](num, to :T) :T=
-  ## Aligns the given `num` to the given number `to`, which must be a power of 2.
-  # Explanation:
-  # `to` being a power of two guarantees that it has only one bit active.
-  # (align-1)   will make all the bits below it active. Adding this to the number means:
-  #   : if number is already aligned, it will fill out the bits below alignment
-  #   : if its not aligned, it will move it over the next align boundary and maybe some inactive bits will be activated.
-  # ~(align-1)  will invert the bits, creating a mask that can be used to cut off bits below alignment. 
-  # &           will mask out the lower bits aligning the result
-  assert (to > 1) and (to and (to-1)) == 0, "The number to align to must be a power of 2"
-  result = (num + to-1) and not(to-1)
-#_____________________________
-func alignTo4 *[T :SomeInteger](num :T) :T=  num.alignTo(4)
-  ## Aligns the given `num` to be a multiple of 4.
-]##
+  check 64.alignTo(2) == 64
+  check 63.alignTo(2) == 64
+  check 62.alignTo(2) == 62
+  check 61.alignTo(2) == 62
+  #________________________
+  check 64.alignTo(8) == 64
+  check 61.alignTo(8) == 64
+  check 57.alignTo(8) == 64
+  check 56.alignTo(8) == 56
+  #________________________
+  check 64.alignTo4() == 64
+  check 63.alignTo4() == 64
+  check 62.alignTo4() == 64
+  check 61.alignTo4() == 64
+  check 60.alignTo4() == 60
+  #________________________
+  check 64.alignTo(u8) == 64.alignTo8()
+  check 61.alignTo(u8) == 61.alignTo8()
+  check 57.alignTo(u8) == 57.alignTo8()
+  check 56.alignTo(u8) == 56.alignTo8()
+  #________________________
+  check 64.alignTo(u16) == 64.alignTo(16)
+  check 54.alignTo(u32) == 54.alignTo(32)
+  check 31.alignTo(u64) == 31.alignTo(64)
 

@@ -30,7 +30,7 @@ macro getLitName *(e :untyped) :untyped= newLit($e)
   ##      because `$` and similars dispatch the uint or its value, and not the variable name.
 
 #_____________________________
-macro name (v :typed) :untyped=
+macro name *(v :typed) :untyped=
   ## Returns the name of a dot expression or a symbol as a string literal.
   if   v.kind == nnkSym:      result = newLit v.strVal
   elif v.kind == nnkDotExpr:  result = newLit v[1].repr

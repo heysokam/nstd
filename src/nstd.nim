@@ -18,6 +18,7 @@ import ./nstd/git       ; export git
 import ./nstd/iter      ; export iter
 import ./nstd/logger    ; export logger
 import ./nstd/macros    ; export macros
+import ./nstd/markers   ; export markers
 import ./nstd/node      ; export node
 import ./nstd/opts      ; export opts
 import ./nstd/paths     ; export paths
@@ -31,5 +32,7 @@ import ./nstd/typetools ; export typetools
 # Converters and automatic behavior are dangerous.
 # But sometimes they are helpful, so for those cases the functionality is there.
 # It should be explicitely imported where its used, with:
+#[
 import nstd/auto  ## Converters (automatic or non-explicit behavior)
+]#
 

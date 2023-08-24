@@ -18,6 +18,7 @@ import nstd/format     ## Tools for formatting of text on console and logs
 import nstd/git        ## Git-related tools
 import nstd/iter       ## Extra Iterators
 import nstd/logger     ## Logging interface for functionality from other tools
+import nstd/markers    ## Templates for marking code paths in different ways (todo, unreachable, etc)
 import nstd/macros     ## Extra Macros
 import nstd/node       ## Node type and functionality
 import nstd/opts       ## CLI option tools

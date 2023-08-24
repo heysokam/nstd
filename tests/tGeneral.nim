@@ -34,3 +34,48 @@ test cfg.Prefix&"Iterators":  # NOTE: should be separate file when there are mor
   for byte in bytes.twoD(4,4):
     if byte == 0: byte = 255
   for id,byte in bytes.pairs: check bytes[id] == bytesK[id]
+
+#____________________________________________________
+test cfg.Prefix&"Type Tools":
+  let one,two :string= ""
+  let other :u8= 0
+  check (one,two).isType(string)
+  check not (one,other).isType(string)
+  #________________________
+  type MyObj = object
+  type MyRef = ref object
+  check MyObj.isObject() and MyRef.isObject()
+  #________________________
+  var val = MyObj()
+  check val.new() is ref MyObj
+
+#____________________________________________________
+proc  test *()= todo("todo"): "todo test"
+proc test2 *()= todo("two"): "todo test2"
+proc test3 *()= todo("three"): "todo test3"
+#____________________________________________________
+test cfg.Prefix&"Markers: Todo template":
+  todo("testing"): "todo test0"
+  todo "this is a todo test"
+  check report() == """
+two
+  tGeneral.nim(54,20): todo test2
+testing
+  tGeneral.nim(57,6): todo test0
+three
+  tGeneral.nim(55,20): todo test3
+todo
+  tGeneral.nim(53,20): todo test
+unlabelled
+  tGeneral.nim(58,2): this is a todo test
+"""
+
+#____________________________________________________
+test cfg.Prefix&"Markers: Unreachable":
+  proc marker=
+    if    false: discard
+    elif  false: discard
+    else: unreachable "----unreachable reason----"
+  try: marker(); check false
+  except Unreachable: check true
+
