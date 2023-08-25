@@ -5,15 +5,13 @@
 import std/unittest
 # n*std dependencies
 import nstd
-# tests dependencies
-import ./cfg
 # Specific for this test
 import std/monotimes
 import std/times
 
 
 #____________________________________________________
-test cfg.Prefix&"Time: Times":
+test nstd.Prefix&" Time: Times":
   let a = nstd.time.get()
   let b = nstd.time.get()
   check a < b
@@ -22,7 +20,7 @@ test cfg.Prefix&"Time: Times":
   check a.sec  == a.ticks/1_000_000_000
 
 #____________________________________________________
-test cfg.Prefix&"Time: Durations":
+test nstd.Prefix&" Time: Durations":
   let a  = nstd.time.get()
   let b  = nstd.time.get()
   let d  = b-a

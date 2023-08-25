@@ -5,25 +5,23 @@
 import std/unittest
 # n*std dependencies
 import nstd
-# tests dependencies
-import ./cfg
 
 
 #____________________________________________________
-test cfg.Prefix&"Convert: Array to String":
+test nstd.Prefix&" Convert: Array to String":
   check  ['a','b','c'].toString() == "abc"
   check @['a','b','c'].toString() == "abc"
 
 #____________________________________________________
-test cfg.Prefix&"Defines":
+test nstd.Prefix&" Defines":
   check not NimScript
 
 #____________________________________________________
-test cfg.Prefix&"Directories":
+test nstd.Prefix&" Directories":
   check projectDir() == ""
 
 #____________________________________________________
-test cfg.Prefix&"Iterators":  # NOTE: should be separate file when there are more
+test nstd.Prefix&" Iterators":  # NOTE: should be separate file when there are more
   const bytesK = [
     255'u8,255,255,255,
        255,255,255,255,
@@ -36,7 +34,7 @@ test cfg.Prefix&"Iterators":  # NOTE: should be separate file when there are mor
   for id,byte in bytes.pairs: check bytes[id] == bytesK[id]
 
 #____________________________________________________
-test cfg.Prefix&"Type Tools":
+test nstd.Prefix&" Type Tools":
   let one,two :string= ""
   let other :u8= 0
   check (one,two).isType(string)
@@ -54,24 +52,24 @@ proc  test *()= todo("todo"): "todo test"
 proc test2 *()= todo("two"): "todo test2"
 proc test3 *()= todo("three"): "todo test3"
 #____________________________________________________
-test cfg.Prefix&"Markers: Todo template":
+test nstd.Prefix&" Markers: Todo template":
   todo("testing"): "todo test0"
   todo "this is a todo test"
   check report() == """
 two
-  tGeneral.nim(54,20): todo test2
+  tGeneral.nim(52,20): todo test2
 testing
-  tGeneral.nim(58,6): todo test0
+  tGeneral.nim(56,6): todo test0
 nstd
-  tGeneral.nim(59,2): this is a todo test
+  tGeneral.nim(57,2): this is a todo test
 three
-  tGeneral.nim(55,20): todo test3
+  tGeneral.nim(53,20): todo test3
 todo
-  tGeneral.nim(53,20): todo test
+  tGeneral.nim(51,20): todo test
 """
 
 #____________________________________________________
-test cfg.Prefix&"Markers: Unreachable":
+test nstd.Prefix&" Markers: Unreachable":
   proc marker=
     if    false: discard
     elif  false: discard

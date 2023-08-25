@@ -5,10 +5,8 @@
 import std/unittest
 # n*std dependencies
 import nstd
-# tests dependencies
-import ./cfg
 
 
 #____________________________________________________
-test cfg.Prefix&"Skel":
+test nstd.Prefix&" Skel":
   check true

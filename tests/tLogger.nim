@@ -5,12 +5,10 @@
 import std/unittest
 # n*std dependencies
 import nstd
-# tests dependencies
-import ./cfg
 
 
 #____________________________________________________
-test cfg.Prefix&"Logger: Types":
+test nstd.Prefix&" Logger: Types":
   check nstd.LogFunc is proc (args: varargs[string, `$`]) :void
   check nstd.LvlFunc is proc (lvl :Log; args: varargs[string, `$`]) :void
   check nstd.Log.high.ord == 8-1  # Panic if we added a level but didn't make a test for it
@@ -23,7 +21,7 @@ test cfg.Prefix&"Logger: Types":
 
 
 ##[ OUTDATED ]#____________________________________________________
-test cfg.Prefix&"Logger: Custom Mapping to std/logging":
+test nstd.Prefix&" Logger: Custom Mapping to std/logging":
   # Levels: Auto Converter
   check nstd.Log.All.ord   == std.Level.lvlAll.ord
   check nstd.Log.Trc.ord   == std.Level.lvlDebug.ord
@@ -60,7 +58,7 @@ test cfg.Prefix&"Logger: Custom Mapping to std/logging":
   # nstd.fatal         == std.fatal
 
 #____________________________________________________
-test cfg.Prefix&"Logger: Creation": discard
+test nstd.Prefix&" Logger: Creation": discard
 
 
 var con = nstd.newConLogger(

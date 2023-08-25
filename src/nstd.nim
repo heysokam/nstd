@@ -26,13 +26,6 @@ import ./nstd/size      ; export size
 import ./nstd/time      ; export time
 import ./nstd/typetools ; export typetools
 
-
-# WRN
-# ./nstd/auto is not exported automatically. 
-# Converters and automatic behavior are dangerous.
-# But sometimes they are helpful, so for those cases the functionality is there.
-# It should be explicitely imported where its used, with:
-#[
-import nstd/auto  ## Converters (automatic or non-explicit behavior)
-]#
+# Default Configuration  ( variables/switches )
+import ./nstd/cfg       ; export cfg
 

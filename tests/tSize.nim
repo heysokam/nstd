@@ -5,14 +5,12 @@
 import std/unittest
 # n*std dependencies
 import nstd
-# tests dependencies
-import ./cfg
 
 type TestType = object
   data :array[42,char]
 
 #____________________________________________________
-test cfg.Prefix&"Size: Any Type.size":
+test nstd.Prefix&" Size: Any Type.size":
   check  int16.size == uint64( 2 )
   check uint16.size == uint64( 2 )
   check  int32.size == uint64( 4 )
@@ -22,7 +20,7 @@ test cfg.Prefix&"Size: Any Type.size":
   check TestType.size == uint64( 42 )
 
 #____________________________________________________
-test cfg.Prefix&"Size: Any value.size":
+test nstd.Prefix&" Size: Any value.size":
   let v1 :int16= 1
   let v2 :int32= 2
   let v3 :int64= 3
@@ -33,7 +31,7 @@ test cfg.Prefix&"Size: Any value.size":
   check t1.size == uint64( 42 )
 
 #____________________________________________________
-test cfg.Prefix&"Size: Any openArray.size":
+test nstd.Prefix&" Size: Any openArray.size":
   let s2 :array[3,char] =  ['a','b','c']
   let s1 :seq[char]     = @['a','b','c']
   check    s1.size == uint64( 3 )
@@ -42,7 +40,7 @@ test cfg.Prefix&"Size: Any openArray.size":
   check s2.csizeof == cint( 3 )
 
 #____________________________________________________
-test cfg.Prefix&"Size: Alignment":
+test nstd.Prefix&" Size: Alignment":
   check 64.alignTo(2) == 64
   check 63.alignTo(2) == 64
   check 62.alignTo(2) == 62

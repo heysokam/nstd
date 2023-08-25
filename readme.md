@@ -25,16 +25,12 @@ import nstd/opts       ## CLI option tools
 import nstd/paths      ## os.paths missing procs (borrow from string) and extensions
 import nstd/size       ## sizeof() extensions
 import nstd/time       ## Ergonomic helpers for managing time
-
-# Not exported by default
-# Import manually to use them
-import nstd/auto       ## Converters and other automatic or non-explicit behavior
 ```
 ```md
 # Compile-time Switches
--d:nstdPrefix:"STRING"     : (default: "「nstd」")
--d:nstdLogFormat:"STRING"  : (default: ???) #TODO
--d:nstdLogFlushAll:on/off  : (default: off)
+-d:nstd.Prefix:"STRING"     : (default: "「nstd」")
+-d:nstd.LogFormat:"STRING"  : (default: ???) #TODO
+-d:nstd.LogFlushAll:on/off  : (default: off)
 ```
 
 **License**:   MIT | Copyright © `Ivan Mar (sOkam!)`
