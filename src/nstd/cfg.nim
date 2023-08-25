@@ -1,4 +1,4 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-const Prefix *{.strdefine.}=  "「nstd」 "
+const nstdPrefix  *{.strdefine.}=  "「nstd」"

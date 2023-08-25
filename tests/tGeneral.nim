@@ -61,13 +61,13 @@ test cfg.Prefix&"Markers: Todo template":
 two
   tGeneral.nim(54,20): todo test2
 testing
-  tGeneral.nim(57,6): todo test0
+  tGeneral.nim(58,6): todo test0
+nstd
+  tGeneral.nim(59,2): this is a todo test
 three
   tGeneral.nim(55,20): todo test3
 todo
   tGeneral.nim(53,20): todo test
-unlabelled
-  tGeneral.nim(58,2): this is a todo test
 """
 
 #____________________________________________________

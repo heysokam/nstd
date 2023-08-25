@@ -5,6 +5,8 @@
 #:__________________________________|
 # std dependencies
 import std/[tables, strutils, macros]
+# n*std dependencies
+import ./macros
 
 
 #______________________________________________________________
@@ -27,14 +29,14 @@ var todos {.compileTime.} :Table[string, seq[string]]
   ## Internal state of the todo module (compile-time only)
 
 #_______________________________________
-template todo *(msg :static string)=
+template todo *(msg :static string= "")=
   ## Mark block as an unlabelled todo with the given message, and add it to the internal list.
   ## Usage:  `todo "this is a todo"`
   static:
-    const label = "unlabelled"
-    const info  = instantiationInfo()
+    const label   = getModule()
+    const info    = instantiationInfo()
     discard todos.hasKeyOrPut(label, newSeq[string]())
-    todos[label].add "$#($#,$#): $#" % [info.fileName, $info.line, $info.column, msg]
+    todos[label].add "$#($#,$#): $#" % [info.fileName, $info.line, $info.column, when msg != "": msg else: getName()]
   {.warning: "Todo: " & msg.}
 
 #_______________________________________

@@ -29,6 +29,20 @@ macro getLitName *(e :untyped) :untyped= newLit($e)
   ##      This example is not possible without this macro,
   ##      because `$` and similars dispatch the uint or its value, and not the variable name.
 
+#___________________
+macro getOwner *(o :typed) :untyped=
+  let prc = o.owner
+  if prc.owner != nil: nnkPar.newTree(newLit $prc.owner, newLit $prc)
+  else:                nnkPar.newTree(newLit prc, newLit"")
+template getName *() :untyped=
+  ## Returns a string with the name of the module or proc where this template is called from
+  proc n= discard
+  getOwner(n)[1]
+template getModule *() :untyped=
+  ## Returns a string with the name of the module that owns the proc where this template is called from
+  proc m= discard
+  getOwner(m)[0]
+
 #_____________________________
 macro name *(v :typed) :untyped=
   ## Returns the name of a dot expression or a symbol as a string literal.

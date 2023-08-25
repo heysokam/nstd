@@ -1,6 +1,9 @@
 #:____________________________________________________
-#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
+#  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
+# Aliases for the std/logging module    |
+# Very likely to be removed forever     |
+#_______________________________________|
 # std dependencies
 from std/logging as std import nil
 
@@ -81,8 +84,8 @@ const  defFilename * = std.defaultFilename  ## Returns the filename that is used
 # Logging
 #___________________
 export std.log
-template trc *(args: varargs[string, `$`]) :void=  std.log(Log.Trc.toStd, args)  ## Logs a trace message to all registered handlers.
-template dbg *(args: varargs[string, `$`]) :void=  std.log(Log.Dbg.toStd, args)  ## Logs a debug message to all registered handlers.
+template trc *(args :varargs[string, `$`]) :void=  std.log(Log.Trc.toStd, args)  ## Logs a trace message to all registered handlers.
+template dbg *(args :varargs[string, `$`]) :void=  std.log(Log.Dbg.toStd, args)  ## Logs a debug message to all registered handlers.
 template inf *(args :varargs[string, `$`]) :void=  std.log(Log.Inf.toStd, args)  ## Logs info msg to all registered handlers.
 template wrn *(args :varargs[string, `$`]) :void=  std.log(Log.Wrn.toStd, args)  ## Logs a warning msg to all registered handlers.
 template err *(args :varargs[string, `$`]) :void=  std.log(Log.Err.toStd, args)  ## Logs an error msg to all registered handlers.

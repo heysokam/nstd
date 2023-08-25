@@ -17,7 +17,7 @@ import nstd/dirs       ## Tools for dir management
 import nstd/format     ## Tools for formatting of text on console and logs
 import nstd/git        ## Git-related tools
 import nstd/iter       ## Extra Iterators
-import nstd/logger     ## Logging interface for functionality from other tools
+import nstd/logger     ## Logging tools  (heavily refactored version of std/logging)
 import nstd/markers    ## Templates for marking code paths in different ways (todo, unreachable, etc)
 import nstd/macros     ## Extra Macros
 import nstd/node       ## Node type and functionality
@@ -29,6 +29,12 @@ import nstd/time       ## Ergonomic helpers for managing time
 # Not exported by default
 # Import manually to use them
 import nstd/auto       ## Converters and other automatic or non-explicit behavior
+```
+```md
+# Compile-time Switches
+-d:nstdPrefix:"STRING"     : (default: "「nstd」")
+-d:nstdLogFormat:"STRING"  : (default: ???) #TODO
+-d:nstdLogFlushAll:on/off  : (default: off)
 ```
 
 **License**:   MIT | Copyright © `Ivan Mar (sOkam!)`
