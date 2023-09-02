@@ -14,6 +14,7 @@ import nstd/compile    ## Buildsystem helpers for compiling C code from inside N
 import nstd/convert    ## Type conversion tools
 import nstd/defines    ## General-purpose defines, for ergonomics
 import nstd/dirs       ## Tools for dir management
+import nstd/files      ## Tools for managing the PathFile type
 import nstd/format     ## Tools for formatting of text on console and logs
 import nstd/git        ## Git-related tools
 import nstd/iter       ## Extra Iterators
@@ -29,6 +30,7 @@ import nstd/time       ## Ergonomic helpers for managing time
 ```md
 # Compile-time Switches
 -d:nstd.Prefix:"STRING"     : (default: "「nstd」")
+-d:nstd.LogName:"STRING"    : (default: nstd.Prefix & "Logger" )
 -d:nstd.LogFormat:"STRING"  : (default: ???) #TODO
 -d:nstd.LogFlushAll:on/off  : (default: off)
 ```

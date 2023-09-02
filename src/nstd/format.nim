@@ -7,6 +7,16 @@ import std/strutils
 # n*std dependencies
 import ./types
 
+#_______________________________________
+# Searching inside strings
+#___________________
+proc startsWith *(word :string; args :varargs[string, `$`]) :bool=
+  for arg in args:
+    if strutils.startsWith(word, arg): return true
+proc endsWith *(word :string; args :varargs[string, `$`]) :bool=
+  for arg in args:
+    if strutils.endsWith(word, arg): return true
+
 
 #____________________
 proc reprb *[T](n :var T) :string=  cast[ByteAddr](n.addr).repr
