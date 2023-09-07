@@ -42,6 +42,7 @@ func cTypeToNim *(typ :string) :string=
 func cValueToNim *(val :string) :string=
   ## Converts the given C value string into its Nim counterpart
   if "." in val: return val.replace("F", "'f32")
+  if val.startsWith("0","1","2","3","4","5","6","7","8","9"): return val
   case val
   of "(~0U)"   : "not 0'u32"
   of "(~1U)"   : "not 1'u32"
