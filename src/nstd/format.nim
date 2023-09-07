@@ -7,6 +7,8 @@ import std/strutils
 # n*std dependencies
 import ./types
 
+type FormatError = object of CatchableError
+
 #_______________________________________
 # Searching inside strings
 #___________________
@@ -25,6 +27,27 @@ proc repra *[T](n :var T) :string=  n.addr.repr & " " & n.reprb
   ## Returns the string representation of an address.
   ## Same as reprb, with better formatting
 
+#_______________________________________
+# Convert C code strings to Nim
+#____________________
+func cTypeToNim *(typ :string) :string=
+  ## Converts the given C type string into its Nim counterpart
+  case typ
+  of "uint32_t" : "uint32"
+  of "uint64_t" : "uint64"
+  of "float"    : "float32"
+  of "double"   : "float64"
+  else: raise newException(FormatError, &"Tried to convert a C type string to Nim, but it is not a recognized as a known type:\n{typ}")
+#____________________
+func cValueToNim *(val :string) :string=
+  ## Converts the given C value string into its Nim counterpart
+  if "." in val: return val.replace("F", "'f32")
+  case val
+  of "(~0U)"   : "not 0'u32"
+  of "(~1U)"   : "not 1'u32"
+  of "(~2U)"   : "not 2'u32"
+  of "(~0ULL)" : "not 0'u64"
+  else: raise newException(FormatError, &"Tried to convert a C value string to Nim, but it is not a recognized as a known type:\n{val}")
 
 #_______________________________________
 # Case Conversion
