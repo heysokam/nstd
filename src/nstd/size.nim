@@ -8,6 +8,9 @@ import std/strformat
 #_______________________________________
 # Size Calculation
 #___________________
+func toBytes *(n :SomeInteger) :uint32=  assert (n mod 8) == 0; result = uint32( n div 8 )
+  ## Returns the given multiple of 8 divided by 8 (eg: 8bits == 1byte)
+#_____________________________
 func size *[T](t :typedesc[T]) :uint64=  uint64( sizeof(t) )
   ## Returns the size in bytes of the given type. Alias for sizeof()
 func size *[T :not openArray](n :T) :uint64=  uint64( sizeof(n) )

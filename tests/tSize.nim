@@ -6,6 +6,18 @@ import std/unittest
 # n*std dependencies
 import nstd
 
+#____________________________________________________
+test nstd.Prefix&" Size: number.toBytes converter":
+  check  0.toBytes == uint32( 0 )
+  check  8.toBytes == uint32( 1 )
+  check 16.toBytes == uint32( 2 )
+  check 32.toBytes == uint32( 4 )
+  check 64.toBytes == uint32( 8 )
+  for num in 1..<8: # Should fail cases
+    try: discard num.toBytes; check false
+    except AssertionDefect: check true
+
+#____________________________________________________
 type TestType = object
   data :array[42,char]
 
