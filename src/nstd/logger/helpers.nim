@@ -74,5 +74,5 @@ const PattTrace  * = "{getStackTrace()}"
 proc formatMsg *(logger :Logger; level :Log; args :varargs[string, `$`]) :string=
   ## Returns a string correctly formatted for the logger, level and args given.
   result = fmt"{getDateTime()} {Sep} {level.key()} {Sep} {logger.name} {Sep} {args.join()}"
-  if level >= Log.Err: result.add( fmt" {Sep} {getStackTrace()}" )
+  if level >= Log.Fatal: result.add( fmt" {Sep} {getStackTrace()}" )
 

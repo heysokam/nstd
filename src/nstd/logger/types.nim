@@ -17,8 +17,8 @@ type Log  *{.pure.}= enum
   Inf   ## User: Information that users should be informed about.
   Wrn   ## Both: Impending problems that require some attention.
   Err   ## Both: Error conditions that the application can recover from.
-  Fatal ## Both: Fatal errors that prevent the application from continuing.
   Dbg   ## Dev:  Debug Info. Anything associated with normal operation that devs need to know about.
+  Fatal ## Both: Fatal errors that prevent the application from continuing.
   Trc   ## Dev:  Trace Info. Finest debug information. For when something is hard to find. TMI.
   All   ## Every log level
 #___________________
