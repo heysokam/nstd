@@ -12,12 +12,15 @@ proc len        *(p :Path) :int    {.borrow.}
 proc readFile   *(p :Path) :string {.borrow.}
 proc fileExists *(p :Path) :bool   {.borrow.}
 proc splitFile  *(p :Path) :tuple[dir, name, ext :string] {.borrow.}
-proc `$` *(p :Path) :string {.borrow.}
+proc `$`        *(p :Path) :string {.borrow.}
 
 #_____________________________
 # Extend
 const UndefinedPath * = "UndefinedPath".Path
   ## Path that defines an Undefined Path, so that error messages are clearer. Mostly for error checking.
+#_____________________________
+func `/` *(p :Path; s :string) :Path=  p/s.Path
+func `/` *(s :string; p :Path) :Path=  s.Path/p
 #_____________________________
 proc isFile *(input :string|Path) :bool=  (input.len < 32000) and (Path(input) != UndefinedPath) and (input.fileExists())
   ## Returns true if the input is a file. Returns false:
