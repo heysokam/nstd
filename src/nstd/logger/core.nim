@@ -15,7 +15,7 @@ import ./helpers
 
 
 #_______________________________________
-# Constructors
+# @section Constructors
 #___________________
 proc new *(kind :l.Kind;
     name      : str;
@@ -74,7 +74,7 @@ proc newFileLogger *(
     ) # << ConLogger.new( ... )
 
 #_______________________________________
-# Logger Control
+# @section Logger Control
 #___________________
 proc log*(
     logger : Logger;
@@ -116,7 +116,7 @@ proc clear *(logger :Logger) :void=
   of FileLogger : logger.file.erase()
 
 #_______________________________________
-# Internal State Logger
+# @section Internal State Logger
 #___________________
 var defLogger {.threadvar.} :Logger
   ## Internal default (per thread) logger.
@@ -158,12 +158,14 @@ proc init *(
     ) # << Logger( ... )
 
 #_______________________________________
-template trc   *(args :varargs[string, `$`]) :void=  defLogger.log(Log.Trc,   args)  ## Logs a trace message with the default (per thread) logger.
-template dbg   *(args :varargs[string, `$`]) :void=  defLogger.log(Log.Dbg,   args)  ## Logs a debug message with the default (per thread) logger.
-template inf   *(args :varargs[string, `$`]) :void=  defLogger.log(Log.Inf,   args)  ## Logs info msg with the default (per thread) logger.
-template wrn   *(args :varargs[string, `$`]) :void=  defLogger.log(Log.Wrn,   args)  ## Logs a warning msg with the default (per thread) logger.
-template err   *(args :varargs[string, `$`]) :void=  defLogger.log(Log.Err,   args)  ## Logs an error msg with the default (per thread) logger.
-template fatal *(args :varargs[string, `$`]) :void=  defLogger.log(Log.Fatal, args)  ## Logs a fatal error message with the default (per thread) logger.
+proc ensureInit () :void {.inline.}=
+  if defLogger.isNil: core.init()
+template trc   *(args :varargs[string, `$`]) :void=  ensureInit(); defLogger.log(Log.Trc,   args)  ## @descr Logs a trace message with the default (per thread) logger.
+template dbg   *(args :varargs[string, `$`]) :void=  ensureInit(); defLogger.log(Log.Dbg,   args)  ## @descr Logs a debug message with the default (per thread) logger.
+template inf   *(args :varargs[string, `$`]) :void=  ensureInit(); defLogger.log(Log.Inf,   args)  ## @descr Logs info msg with the default (per thread) logger.
+template wrn   *(args :varargs[string, `$`]) :void=  ensureInit(); defLogger.log(Log.Wrn,   args)  ## @descr Logs a warning msg with the default (per thread) logger.
+template err   *(args :varargs[string, `$`]) :void=  ensureInit(); defLogger.log(Log.Err,   args)  ## @descr Logs an error msg with the default (per thread) logger.
+template fatal *(args :varargs[string, `$`]) :void=  ensureInit(); defLogger.log(Log.Fatal, args)  ## @descr Logs a fatal error message with the default (per thread) logger.
 template noLog *(args :varargs[string, `$`]) :void=  discard
 
 ##[ IDEAS ]#_______________________________________

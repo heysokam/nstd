@@ -12,7 +12,7 @@ from ./paths import Path, setCurrentDir
 # @section Nimscript compatibility for compiled code
 #___________________
 when not defined(nimscript):
-  template rm *(file :string)=  paths.removeFile(file)
+  template rm *(file :string|Path)=  paths.removeFile(when file is Path: file else: file.Path)
   template rmDir *(dir :string)=  paths.removeDir(dir)
   template withDir *(trg :string|Path; body :untyped)=
     let prev = paths.getCurrentDir()
