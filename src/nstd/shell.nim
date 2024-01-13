@@ -39,9 +39,9 @@ proc cp *(src,trg :string) :void=
 proc mv *(src,trg :string) :void=
   when defined(nimscript) : mvFile(src, trg)
   else                    : os.moveFile(src, trg)
-proc md *(trg :string) :void {.inline.}=
+proc md *(trg :string|Path) :void {.inline.}=
   when defined(nimscript) : mkDir(trg)
-  else                    : os.createDir(trg)
+  else                    : os.createDir( when trg is Path: trg.string else: trg )
 proc dl *(args :varargs[string, `$`]) :void {.inline.}=
   when defined(nimscript) : sh "wget", args
   else                    : {.warning: "Downloading not implemented yet".} ; sh "wget", args
