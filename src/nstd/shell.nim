@@ -6,21 +6,24 @@ from std/os import execShellCmd
 import std/[ strformat,strutils ]
 # @deps nstd
 import ./logger as l
-from ./paths import Path, setCurrentDir
+from ./paths import Path, setCurrentDir, removeFile, removeDir
 
 #_______________________________________
 # @section Nimscript compatibility for compiled code
 #___________________
 when not defined(nimscript):
-  template rm *(file :string|Path)=  paths.removeFile(when file is Path: file else: file.Path)
-  template rmDir *(dir :string)=  paths.removeDir(dir)
+  proc rm *(file :string|Path)=  paths.removeFile(when file is Path: file else: file.Path)
+  proc rmDir *(dir :string|Path)=  paths.removeDir(when dir is Path: dir else: dir.Path)
   template withDir *(trg :string|Path; body :untyped)=
     let prev = paths.getCurrentDir()
-    l.dbg "Temporarily entering folder", when trg is Path: trg else: trg.string
+    l.dbg "Temporarily entering folder  ", when trg is Path: trg else: trg.string
     paths.setCurrentDir(when trg is Path: trg else: trg.string)
     body  # Run the code inside the block
     l.dbg "Returning to folder", prev
     paths.setCurrentDir(prev)
+  #___________________
+  import std/envvars
+  export getEnv
 
 #_______________________________________
 # @section Commands
@@ -33,9 +36,9 @@ proc sh *(cmd:string; args :varargs[string, `$`]) :void {.inline.}=
     else:
       if os.execShellCmd(command) != 0: raise newException(OSError, "")
   except: raise newException(OSError, &"Failed to run:  {command}")
-proc cp *(src,trg :string) :void=
+proc cp *(src,trg :string|Path) :void=
   when defined(nimscript) : cpFile(src, trg)
-  else                    : os.copyFile(src, trg)
+  else                    : os.copyFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
 proc mv *(src,trg :string) :void=
   when defined(nimscript) : mvFile(src, trg)
   else                    : os.moveFile(src, trg)

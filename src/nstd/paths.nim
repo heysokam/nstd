@@ -15,6 +15,7 @@ else:
   # Missing Procs
   proc len *(p :Path) :int    {.borrow.}
   proc `$` *(p :Path) :string {.borrow.}
+  proc readFile  *(p :Path) :string {.borrow.}
   proc writeFile *(p :Path; data :string) :void {.borrow.}
   proc hash *(p :Path) :Hash {.borrow.}
   #_____________________________
