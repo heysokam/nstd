@@ -15,11 +15,15 @@ from ./paths import Path, setCurrentDir, removeFile, removeDir
 #_____________________________
 when not defined(nimscript):
   proc request *(msg :string; alt :string= "") :string=
+    # Report the {@arg msg} to the user
     echo msg
+    # Get the line
     result = readLine(stdin)
     if result == "": result = alt
   #___________________
   proc request *(_:typedesc[char]; msg :string; alt :char= ' ') :char=
+    # Report the {@arg msg} to the user
+    echo msg
     # Get the character
     var ch = readChar(stdin)
     result = ch
