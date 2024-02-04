@@ -9,6 +9,25 @@ from std/symlinks import createSymlink
 import ./logger as l
 from ./paths import Path, setCurrentDir, removeFile, removeDir
 
+
+#_______________________________________
+# @section Request inputs from the user
+#_____________________________
+when not defined(nimscript):
+  proc request *(msg :string; alt :string= "") :string=
+    echo msg
+    result = readLine(stdin)
+    if result == "": result = alt
+  #___________________
+  proc request *(_:typedesc[char]; msg :string; alt :char= ' ') :char=
+    # Get the character
+    var ch = readChar(stdin)
+    result = ch
+    if result == '\n': result = alt
+    # Clear stdin of leftover characters
+    while ch != '\n': ch = readChar(stdin)
+
+
 #_______________________________________
 # @section Nimscript compatibility for compiled code
 #___________________
