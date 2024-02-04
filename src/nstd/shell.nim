@@ -4,6 +4,7 @@
 # @deps std
 from std/os import execShellCmd
 import std/[ strformat,strutils ]
+from std/symlinks import createSymlink
 # @deps nstd
 import ./logger as l
 from ./paths import Path, setCurrentDir, removeFile, removeDir
@@ -36,18 +37,30 @@ proc sh *(cmd:string; args :varargs[string, `$`]) :void {.inline.}=
     else:
       if os.execShellCmd(command) != 0: raise newException(OSError, "")
   except: raise newException(OSError, &"Failed to run:  {command}")
+#___________________
 proc cp *(src,trg :string|Path) :void=
   when defined(nimscript) : cpFile(src, trg)
   else                    : os.copyFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
-proc mv *(src,trg :string) :void=
+#___________________
+proc mv *(src,trg :string|Path) :void=
   when defined(nimscript) : mvFile(src, trg)
-  else                    : os.moveFile(src, trg)
+  else                    : os.moveFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
+#___________________
 proc md *(trg :string|Path) :void {.inline.}=
   when defined(nimscript) : mkDir(trg)
   else                    : os.createDir( when trg is Path: trg.string else: trg )
+#___________________
+proc ln *(src,trg :string|Path; symbolic :bool= true) :void {.inline.}=
+  ## @descr Creates a symbolic link from {@arg src} to {@arg trg}
+  ## @todo Ignores {@arg symbolic} and only creates symbolic links. Should be able to handle both symbolic and hard links
+  discard symbolic
+  when defined(nimscript) : sh "ln", "-s", when src is Path: src.string else: src, when trg is Path: trg.string else: trg
+  else                    : createSymlink( when src is Path: src else: src.Path, when trg is Path: trg else: trg.Path )
+#___________________
 proc dl *(args :varargs[string, `$`]) :void {.inline.}=
   when defined(nimscript) : sh "wget", args
   else                    : {.warning: "Downloading not implemented yet".} ; sh "wget", args
+#___________________
 proc unz *(args :varargs[string, `$`]) :void {.inline.}=
   var cmd :string
   for arg in args:
@@ -55,5 +68,6 @@ proc unz *(args :varargs[string, `$`]) :void {.inline.}=
     elif ".tar" in arg: cmd = if defined(debug): "tar -xvf" else: "tar -xf"
   when defined(nimscript) : sh cmd, args
   else                    : {.warning: "Unzipping not implemented yet".} ; sh cmd, args
+#___________________
 proc git *(args :varargs[string, `$`]) :void {.inline.}=  sh "git", args
 
