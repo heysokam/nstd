@@ -136,10 +136,11 @@ proc getDefaultLogger *() :Logger=  defLogger
   ## Only for ergonomics when logging in a simple way.
   ## Should always prefer storing your loggers explicitely, and calling them directly.
 proc init *(
-    threshold : Log  = DefThreshold;
-    flushLvl  : Log  = DefFlushLvl;
-    verbose   : bool = DefVerbose;
-    toStderr  : bool = false;
+    name      : string = cfg.Prefix&" DefaultLogger",
+    threshold : Log    = DefThreshold;
+    flushLvl  : Log    = DefFlushLvl;
+    verbose   : bool   = DefVerbose;
+    toStderr  : bool   = false;
   ) :void=
   ## Sets the internal default (per thread) logger with default values.
   ## Either this function, or `setDefaultLogger`, must be run once for each thread.
@@ -150,7 +151,7 @@ proc init *(
   ## Only for ergonomics when logging in a simple way.
   ## Should always prefer storing your loggers explicitely, and calling them directly.
   defLogger = ConLogger.new(
-    name      = cfg.Prefix&" DefaultLogger",
+    name      = name,
     threshold = threshold,
     flushLvl  = flushLvl,
     verbose   = verbose,
