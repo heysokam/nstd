@@ -11,6 +11,7 @@ else:
   import std/files as stdFiles ; export stdFiles
   import std/dirs  as stdDirs  ; export stdDirs
   import std/hashes
+  from std/strutils import splitLines
   #_____________________________
   # Missing Procs
   proc len *(p :Path) :int    {.borrow.}
@@ -33,9 +34,14 @@ else:
     ##  : If length of the path is too long
     ##  : If path == UndefinedPath
     ##  : If file does not exist
-  #_______________________________________
+  #_____________________________
   proc appendFile *(trg :string|Path; data :string) :void=
     ## @descr Opens the {@arg trg} file and adds the {@arg data} contents to it without erasing the existing contents.
     let file = when trg is string: trg else: trg.string
-    file.open( fmAppend ).write(data).close()
+    let F = file.open( fmAppend )
+    F.write(data)
+    F.close()
+  #_____________________________
+  proc readLines *(trg :string|Path) :seq[string]=  trg.readFile.splitLines
+    ## @descr Reads the file and returns a seq[string] where is entry is a new line of the file
 
