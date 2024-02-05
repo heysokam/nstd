@@ -15,7 +15,8 @@ else:
   # Missing Procs
   proc len *(p :Path) :int    {.borrow.}
   proc `$` *(p :Path) :string {.borrow.}
-  proc readFile  *(p :Path) :string {.borrow.}
+  proc staticRead *(p :Path) :string {.borrow.}
+  proc readFile *(p :Path) :string {.borrow.}
   proc writeFile *(p :Path; data :string) :void {.borrow.}
   proc hash *(p :Path) :Hash {.borrow.}
   #_____________________________
@@ -32,3 +33,9 @@ else:
     ##  : If length of the path is too long
     ##  : If path == UndefinedPath
     ##  : If file does not exist
+  #_______________________________________
+  proc appendFile *(trg :string|Path; data :string) :void=
+    ## @descr Opens the {@arg trg} file and adds the {@arg data} contents to it without erasing the existing contents.
+    let file = when trg is string: trg else: trg.string
+    file.open( fmAppend ).write(data).close()
+

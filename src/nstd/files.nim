@@ -1,10 +1,10 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-# std dependencies
+# @deps std
 from std/os import fileExists
 import std/paths
-# n*std dependencies
+# @deps n*std
 import ./types
 
 
@@ -30,3 +30,4 @@ proc erase *(file :var PathFile) :void=
   if not file.isOpen: return
   discard file.handle.reopen(file.path.string, fmWrite)
   discard file.handle.reopen(file.path.string, file.mode)
+
