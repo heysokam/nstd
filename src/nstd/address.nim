@@ -14,16 +14,16 @@ template mvar *(t: typed) :untyped=
 #_______________________________________
 # System
 #___________________
-template caddr    *(s :cstring)      :cstringArray=  cast[cstringArray](s.unsafeAddr)
-template caddr    *(n :int32)        :ptr int32=     n.unsafeaddr
-template caddr    *(n :uint32)       :ptr uint32=    n.unsafeaddr
-template caddr    *(n :float32)      :ptr float32=   n.unsafeaddr
-template caddr *[T](a :openArray[T]) :ptr T=         a[0].unsafeaddr
+template caddr    *(s :cstring)      :cstringArray=  cast[cstringArray](s.addr)
+template caddr    *(n :int32)        :ptr int32=     n.addr
+template caddr    *(n :uint32)       :ptr uint32=    n.addr
+template caddr    *(n :float32)      :ptr float32=   n.addr
+template caddr *[T](a :openArray[T]) :ptr T=         a[0].addr
 #___________________
 template vaddr *(val :auto) :untyped=
   ## Returns the `addr` of anything, through a temp val.
   ## Useful when the objects have not been created yet.
-  let temp = val; temp.unsafeAddr
+  let temp = val; temp.addr
 #___________________
 template iaddr *[T](num :SomeUnsignedInt) :ptr T=
   ## Returns the SignedInt `addr` of an UnsignedInt.
