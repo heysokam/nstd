@@ -5,7 +5,7 @@
 
 #___________________
 proc toString *(oa :openarray[char]) :string=
-  ## Converts an array/seq of chars into a string
+  ## @descr Converts an array/seq of chars into a string
   result = newStringOfCap(oa.high)
   for ch in oa:
     if ch == '\0': break
