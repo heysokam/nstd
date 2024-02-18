@@ -24,3 +24,8 @@ proc `new` *[T](x :T) :ref T=
   new result
   result[] = x
 
+#___________________
+proc `@` *[T1, T2](val :T1; typ :typedesc[T2]) :T2=  cast[T2](val)
+  ## @descr Casts the contents of {@arg val} to the given {@arg typ}
+  ## @reason Syntax ergonomics. Same as MinC casting
+

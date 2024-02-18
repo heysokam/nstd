@@ -3,6 +3,8 @@
 #:____________________________________________________
 # std dependencies
 import std/os
+from std/strutils import startsWith
+from std/strformat import `&`
 import std/parseopt
 import std/tables
 
@@ -63,8 +65,8 @@ proc getOpt  *(opt :char|string) :bool=
       var list :string= opt
       if list.startsWith("-"): list = list[1..^1]  # Remove the first character from the input
       for ch in list:
-        if ch notin cli.opts.short: return false  # Exit early when one of the characters of the `opt` input was not passed in cli
-      return true                                 # All options of the `opt` input were passed in cli, so return true
+        if &"{ch}" notin cli.opts.short: return false  # Exit early when one of the characters of the `opt` input was not passed in cli
+      return true                                      # All options of the `opt` input were passed in cli, so return true
 #___________________
 proc getLong *(cli :CLI; opt :string) :string=
   for key,values in cli.opts.long.pairs:
