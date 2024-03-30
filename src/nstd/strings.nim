@@ -4,6 +4,10 @@
 # @deps nstd
 import ./types as nstd
 
+#_______________________________________
+# @section strformat forward export
+#_____________________________
+import std/strformat ; export strformat
 
 #________________________________________________________
 # @section strutils wrapper without empty string f*kery  |
