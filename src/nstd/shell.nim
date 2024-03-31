@@ -7,7 +7,7 @@ import std/[ strformat,strutils ]
 from std/symlinks import createSymlink
 # @deps nstd
 import ./logger as l
-from ./paths import Path, setCurrentDir, removeFile, removeDir
+from ./paths import Path, setCurrentDir, removeFile, removeDir, dirExists
 
 
 #_______________________________________
@@ -70,6 +70,7 @@ proc mv *(src,trg :string|Path) :void=
   else                    : os.moveFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
 #___________________
 proc md *(trg :string|Path) :void {.inline.}=
+  if dirExists(trg)       : l.dbg &"Folder already exists. Not creating:  {trg}"; return
   when defined(nimscript) : mkDir(trg)
   else                    : os.createDir( when trg is Path: trg.string else: trg )
 #___________________
