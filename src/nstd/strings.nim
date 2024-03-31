@@ -30,6 +30,20 @@ proc contains *(A,B :string) :bool=
 
 
 #_______________________________________
+# @section strutils extensions
+#_____________________________
+proc startsWith *(word :string; args :varargs[string, `$`]) :bool=
+  ## @descr Returns true if {@arg word} starts with any of the given {@arg args}
+  for arg in args:
+    if utils.startsWith(word, arg): return true
+#___________________
+proc endsWith *(word :string; args :varargs[string, `$`]) :bool=
+  ## @descr Returns true if {@arg word} ends with any of the given {@arg args}
+  for arg in args:
+    if utils.endsWith(word, arg): return true
+
+
+#_______________________________________
 # @section Cstring Array tools
 #_____________________________
 type CstrArray * = distinct cstringArray
