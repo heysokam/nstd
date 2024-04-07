@@ -2,6 +2,7 @@
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
 ## @fileoverview Path management functions and extensions to `std/paths`
+#  @TODO: Turn all of them into PathFile
 when defined(nimscript):
   type Path * = string
 else:
@@ -44,4 +45,14 @@ else:
   #_____________________________
   proc readLines *(trg :string|Path) :seq[string]=  trg.readFile.splitLines
     ## @descr Reads the file and returns a seq[string] where is entry is a new line of the file
+  #_____________________________
+  # Modification time
+  from std/times import nil
+  proc lastMod *(trg :string|Path) :times.Time=
+    ## @descr Returns the last modification time of the {@arg trg} file, or empty if it cannot be found.
+    try:    result = os.getLastModificationTime( trg.string )
+    except: result = times.Time()
+  #_____________________________
+  proc noModSince *(trg :string|Path; hours :SomeInteger) :bool=  ( times.getTime() - trg.lastMod ).inHours > hours
+    ## @descr Returns true if the {@arg trg} file hasn't been modified in the last N {@arg hours}.
 

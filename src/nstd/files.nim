@@ -9,6 +9,8 @@ import ./types
 
 
 #_______________________________________
+# @section PathFile tools
+#_____________________________
 proc new *(_:typedesc[PathFile]; path :Path; mode :FileMode) :PathFile=
   ## Creates a new PathFile object from the given file path and mode.
   ## Its handle will remain open with the given mode, and will need to be closed after use.
