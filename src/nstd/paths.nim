@@ -47,7 +47,7 @@ else:
     ## @descr Reads the file and returns a seq[string] where is entry is a new line of the file
   #_____________________________
   # Modification time
-  from std/times import nil
+  from std/times import `-`, inHours
   proc lastMod *(trg :string|Path) :times.Time=
     ## @descr Returns the last modification time of the {@arg trg} file, or empty if it cannot be found.
     try:    result = os.getLastModificationTime( trg.string )

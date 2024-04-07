@@ -94,4 +94,11 @@ proc unz *(args :varargs[string, `$`]) :void {.inline.}=
   else                    : {.warning: "Unzipping not implemented yet".} ; sh cmd, args
 #___________________
 proc git *(args :varargs[string, `$`]) :void {.inline.}=  sh "git", args
+#___________________
+proc touch *(trg :string|Path) :void=
+  ## @descr Creates the target file if it doesn't exist.
+  when defined(nimscript) :
+    when defined linux    : exec &"touch {trg}"
+    elif defined windows  : exec &"powershell \"Get-Item {trg}\""
+  else                    : open(when trg is Path: trg.string else: trg mode = fmAppend).close
 
