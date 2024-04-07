@@ -21,6 +21,7 @@ else:
   proc readFile *(p :Path) :string {.borrow.}
   proc writeFile *(p :Path; data :string) :void {.borrow.}
   proc hash *(p :Path) :Hash {.borrow.}
+  proc copyDirWithPermissions *(a,b :Path; ignorePermissionErrors = true) :void {.borrow.}
   #_____________________________
   # Extend
   const UndefinedPath * = "UndefinedPath".Path
