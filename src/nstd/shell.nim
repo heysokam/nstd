@@ -40,10 +40,10 @@ when not defined(nimscript):
   proc rmDir *(dir :string|Path)=  paths.removeDir(when dir is Path: dir else: dir.Path)
   template withDir *(trg :string|Path; body :untyped)=
     let prev = paths.getCurrentDir()
-    l.dbg "Temporarily entering folder  ", when trg is Path: trg else: trg.string
+    l.dbg "Temporarily entering folder  ", when trg is Path: trg.string else: trg
     paths.setCurrentDir(when trg is Path: trg else: trg.string)
     body  # Run the code inside the block
-    l.dbg "Returning to folder", prev
+    l.dbg "Returning to folder", prev.string
     paths.setCurrentDir(prev)
   #___________________
   import std/envvars

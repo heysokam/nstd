@@ -8,9 +8,10 @@ when defined(nimscript):
 else:
   # @deps std
   import std/os
-  import std/paths as stdPaths ; export stdPaths
-  import std/files as stdFiles ; export stdFiles
-  import std/dirs  as stdDirs  ; export stdDirs
+  import std/paths   as stdPaths   ; export stdPaths
+  import std/files   as stdFiles   ; export stdFiles
+  import std/dirs    as stdDirs    ; export stdDirs
+  import std/appdirs as stdAppDirs ; export stdAppDirs
   import std/hashes
   from std/strutils import splitLines
   #_____________________________
