@@ -4,10 +4,25 @@
 # @deps nstd
 import ./types as nstd
 
+
+#_______________________________________
+# @section std varargs string extensions
+#_____________________________
+func toString *(args :varargs[string]) :string=
+  ## @descr Converts the given {@arg args} string varargs to a single string.
+  for arg in args:  result.add arg
+#___________________
+var stdout {.importc: "stdout", header: "<stdio.h>".} :File
+proc prnt *(args :varargs[string, `$`]) :void=  stdout.write toString(args)
+  ## @descr Prints the {@arg args} varargs input to console. Same as {@link echo}, but without "\n" at the end.
+#___________________
+
+
 #_______________________________________
 # @section strformat forward export
 #_____________________________
 import std/strformat ; export strformat
+
 
 #________________________________________________________
 # @section strutils wrapper without empty string f*kery  |
