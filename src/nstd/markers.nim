@@ -4,7 +4,8 @@
 # Code markers for different tasks  |
 #:__________________________________|
 # std dependencies
-import std/[tables, strutils, macros]
+import std/[tables, strutils]
+import std/macros as stdMacros
 # n*std dependencies
 import ./macros
 
