@@ -26,6 +26,7 @@ import ./nstd/paths     ; export paths
 import ./nstd/size      ; export size
 import ./nstd/time      ; export time
 import ./nstd/typetools ; export typetools
+import ./nstd/modules   ; export modules
 
 # Default Configuration  ( variables/switches )
 import ./nstd/cfg       ; export cfg

@@ -13,6 +13,7 @@ import nstd/binary     ## Read data from string bytebuffer binary information (l
 import nstd/compile    ## Buildsystem helpers for compiling C code from inside Nim
 import nstd/convert    ## Type conversion tools
 import nstd/defines    ## General-purpose defines, for ergonomics
+import nstd/modules    ## Nim Modules management (import, include) tools
 import nstd/dirs       ## Tools for dir management
 import nstd/files      ## Tools for managing the PathFile type
 import nstd/format     ## Tools for formatting of text on console and logs

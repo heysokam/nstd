@@ -1,8 +1,8 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-# std dependencies
-import std/macros
+# @deps std
+import std/macros as m
 import std/typetraits
 
 
