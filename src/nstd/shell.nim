@@ -65,6 +65,10 @@ proc cp *(src,trg :string|Path) :void=
   when defined(nimscript) : cpFile(src, trg)
   else                    : os.copyFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
 #___________________
+proc cpDir *(src,trg :string|Path) :void=
+  when defined(nimscript) : cpDir(src, trg)
+  else                    : os.copyDir(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
+#___________________
 proc mv *(src,trg :string|Path) :void=
   when defined(nimscript) : mvFile(src, trg)
   else                    : os.moveFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
