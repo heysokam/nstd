@@ -106,3 +106,40 @@ proc touch *(trg :string|Path) :void=
     elif defined windows  : exec &"powershell \"Get-Item {trg}\""
   else                    : open(when trg is Path: trg.string else: trg mode = fmAppend).close
 
+
+
+
+
+##[
+#_______________________________________
+# @section Reference: Old Python-like Tools
+#_____________________________
+# Zipping
+proc zip_priv (s:string,d:string)= # Zips files literally (absolute or relative, whatever is passed) (internal use only)
+  try:             exec &"zip -vr {d} {s}"; echo &":: Created zip file {d} from the contents of {s}"
+  except OSError:  quit &"::ERR Failed to create zip file {d} from {s}"
+
+proc zipAbs *(s:string,d:string)= zip_priv s, d
+
+proc zip *(s :seq[string]; d :string)=  #alias zip="zip -v ", but for Sequences of strings (file lists)
+  var tseq=s
+  echo &":: Splitting list of files {s}"
+  for it in mitems(tseq): it = it.relativePath(getCurrentDir()); echo &": {it}"
+  let t = tseq.join(" ")
+  zip_priv t, d
+
+proc zip*(s:string,d:string)=
+  ## alias zip="zip -v "
+  let t = s.split(" "); zip t, d
+
+proc zipd_priv (trg,zfile :string) :void=
+  ## @internal
+  ## @descr Removes files from target zip file
+  try:             exec &"zip -vd {zfile} {trg}"; echo &":: Deleted {trg} file from the contents of {zfile}"
+  except OSError:  quit &"::ERR Failed to delete file {trg} from {zfile}"
+
+proc zipd *(trg,zfile :string) :void= zipd_priv s, d
+  ## @descr Removes files from target zip file
+  ## alias zipd="zip -vd"
+]##
+
