@@ -85,18 +85,6 @@ proc ln *(src,trg :string|Path; symbolic :bool= true) :void {.inline.}=
   when defined(nimscript) : sh "ln", "-s", when src is Path: src.string else: src, when trg is Path: trg.string else: trg
   else                    : createSymlink( when src is Path: src else: src.Path, when trg is Path: trg else: trg.Path )
 #___________________
-proc dl *(args :varargs[string, `$`]) :void {.inline.}=
-  when defined(nimscript) : sh "wget", args
-  else                    : {.warning: "Downloading not implemented yet".} ; sh "wget", args
-#___________________
-proc unz *(args :varargs[string, `$`]) :void {.inline.}=
-  var cmd :string
-  for arg in args:
-    if   ".zip" in arg: cmd = "unzip"; break
-    elif ".tar" in arg: cmd = if defined(debug): "tar -xvf" else: "tar -xf"
-  when defined(nimscript) : sh cmd, args
-  else                    : {.warning: "Unzipping not implemented yet".} ; sh cmd, args
-#___________________
 proc git *(args :varargs[string, `$`]) :void {.inline.}=  sh "git", args
 #___________________
 proc touch *(trg :string|Path) :void=

@@ -6,7 +6,7 @@ import std/[ os,strformat ]
 #___________________
 # Package
 packageName   = "nstd"
-version       = "0.4.2"
+version       = "0.5.0"
 author        = "sOkam"
 description   = "n*std | Non-Standard Nim stdlib Extensions"
 license       = "MIT"
@@ -23,6 +23,9 @@ let docDir       = "doc"
 #___________________
 # Build requirements
 requires "nim >= 1.9.1"
+# requires "zippy"  # Silent requirement that must be managed by the user
+# requires "puppy"  # Silent requirement that must be managed by the user
+
 
 #________________________________________
 # Helpers
