@@ -7,7 +7,7 @@ import std/[ strformat,strutils ]
 from std/symlinks import createSymlink
 # @deps nstd
 import ./logger as l
-from ./paths import Path, setCurrentDir, removeFile, removeDir, dirExists
+from ./paths import Path, setCurrentDir, removeFile, removeDir, dirExists, walkDir, pcFile, pcDir
 
 
 #_______________________________________
@@ -69,7 +69,7 @@ proc cpDir *(src,trg :string|Path) :void=
   when defined(nimscript) : cpDir(src, trg)
   else                    : os.copyDir(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
 #___________________
-proc cpDir (src,trg :Path; filter :openArray[Path]) :void=
+proc cpDir (src,trg :string|Path; filter :openArray[string|Path]) :void=
   ## @descr Alternative {@link cpDir} that supports passing a list of {@arg filter} paths to ignore
   for it in src.walkDir:
     if it.path in filter: continue
