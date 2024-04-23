@@ -1,6 +1,8 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
+# @deps std
+from std/strformat import `&`
 # @deps nstd
 import ./types as nstd
 
@@ -45,4 +47,12 @@ proc `@` *[T1, T2](val :T1; typ :typedesc[T2]) :T2=  cast[T2](val)
 #___________________
 func version *[T](M,m,p :T) :Version[T]= Version[T](M:M, m:m, p:p)
   ## @descr Creates a {@link Version} object with Major ID {@arg M}, minor ID {@arg m}, and patch ID {@arg p}
+#_____________________________
+func toString *[T](
+    v       : Version[T];
+    prefix  : string = "v";
+    sep     : string = ".";
+    postfix : string = "";
+  ) :string=  &"{prefix}{v.M}{sep}{v.m}{sep}{v.p}{postfix}"
+  ## @descr Turns the {@arg v} version into the formatted string representation
 
