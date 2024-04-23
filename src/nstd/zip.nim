@@ -23,10 +23,11 @@ proc writeZipArchive *(archive :ZipArchive; path :Path) :void {.borrow.}
 #_____________________________
 proc zip *(list :seq[Path]; trg :Path; rel :Path= Path".") :void=
   ## @descr Zips the {@arg list} of files into the {@arg trg} file
-  let archive = ZipArchive()
+  var entries: Table[string, string]
   withDir rel:
-    for file in list: archive.addFile(file.string)
-  archive.writeZipArchive(trg)
+    for file in list:
+      entries[file.relativePath(rel).string] = file.readFile
+  trg.writeFile(createZipArchive(entries))
 
 
 #_______________________________________
