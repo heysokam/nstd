@@ -69,6 +69,14 @@ proc cpDir *(src,trg :string|Path) :void=
   when defined(nimscript) : cpDir(src, trg)
   else                    : os.copyDir(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
 #___________________
+proc cpDir (src,trg :Path; filter :openArray[Path]) :void=
+  ## @descr Alternative {@link cpDir} that supports passing a list of {@arg filter} paths to ignore
+  for it in src.walkDir:
+    if it.path in filter: continue
+    if   it.kind == pcFile : cp    it.path, trg/it.path.relativePath(src)
+    elif it.kind == pcDir  : cpDir it.path, trg
+    else: discard
+#___________________
 proc mv *(src,trg :string|Path) :void=
   when defined(nimscript) : mvFile(src, trg)
   else                    : os.moveFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
