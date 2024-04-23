@@ -94,6 +94,10 @@ proc ln *(src,trg :string|Path; symbolic :bool= true) :void {.inline.}=
   else                    : createSymlink( when src is Path: src else: src.Path, when trg is Path: trg else: trg.Path )
 #___________________
 proc git *(args :varargs[string, `$`]) :void {.inline.}=  sh "git", args
+  ## @descr Executes git on a native shell, passing it the given list of {@arg args}
+#___________________
+proc gh (args :varargs[string, `$`]) :void=  sh "gh "&args.join(" ")
+  ## @descr Executes GitHub's CLI tool on a native shell, passing it the given list of {@arg args}
 #___________________
 proc touch *(trg :string|Path) :void=
   ## @descr Creates the target file if it doesn't exist.
