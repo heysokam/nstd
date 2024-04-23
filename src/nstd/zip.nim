@@ -28,6 +28,14 @@ proc zip *(list :seq[Path]; trg :Path; rel :Path= Path".") :void=
     for file in list:
       entries[file.relativePath(rel).string] = file.readFile
   trg.writeFile(createZipArchive(entries))
+#_____________________________
+proc zip *(src,trg :Path; rel :Path= Path".") :void=
+  ## @descr Zips the {@arg dir} folder into the {@arg trg} file
+  var entries: Table[string, string]
+  withDir rel:
+    for file in src.walkDirRec:
+      entries[file.relativePath(rel).string] = file.readFile
+  trg.writeFile(createZipArchive(entries))
 
 
 #_______________________________________
