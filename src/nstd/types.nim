@@ -24,17 +24,24 @@ type cstr * = cstring
 
 #_______________________________________
 # Other aliases
-#___________________
+#_____________________________
 type ByteAddr * = uint
   ## Alias for ByteAddress, which was deprecated in favor of `uint`, which is not readable
 
 
 #_______________________________________
 # Extensions
-#___________________
+#_____________________________
 type PathFile * = object
   ## A type that contains a Path, its File handle and its opening mode
   path   *:Path
   handle *:File
   mode   *:FileMode
+
+#___________________
+type Version *[T]= object
+  ## @descr Generic Version type with the format (Major, minor, patch)
+  M  *:T  ## Major version ID
+  m  *:T  ## minor version ID
+  p  *:T  ## patch version ID
 

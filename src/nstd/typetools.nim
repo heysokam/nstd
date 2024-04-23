@@ -1,6 +1,8 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
+# @deps nstd
+import ./types as nstd
 
 
 #__________________
@@ -40,5 +42,7 @@ proc `@` *[T1, T2](val :T1; typ :typedesc[T2]) :T2=  cast[T2](val)
   ## @descr Casts the contents of {@arg val} to the given {@arg typ}
   ## @reason Syntax ergonomics. Same as MinC casting
 
-
+#___________________
+func version *[T](M,m,p :T) :Version[T]= Version[T](M:M, m:m, p:p)
+  ## @descr Creates a {@link Version} object with Major ID {@arg M}, minor ID {@arg m}, and patch ID {@arg p}
 
