@@ -27,6 +27,10 @@ import nstd/opts       ## CLI option tools
 import nstd/paths      ## os.paths missing procs (borrow from string) and extensions
 import nstd/size       ## sizeof() extensions
 import nstd/time       ## Ergonomic helpers for managing time
+
+# Not exported by default. They require dependencies other than nim's stdlib
+import nstd/dl         ## Ergonomic helpers for downloading files, in similar style to `nstd/shell`
+import nstd/zip        ## Ergonomic helpers for zipping files and folders, in similar style to `nstd/shell`
 ```
 ```md
 # Compile-time Switches
