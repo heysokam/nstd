@@ -93,12 +93,6 @@ proc ln *(src,trg :string|Path; symbolic :bool= true) :void {.inline.}=
   when defined(nimscript) : sh "ln", "-s", when src is Path: src.string else: src, when trg is Path: trg.string else: trg
   else                    : createSymlink( when src is Path: src else: src.Path, when trg is Path: trg else: trg.Path )
 #___________________
-proc git *(args :varargs[string, `$`]) :void {.inline.}=  sh "git", args
-  ## @descr Executes git on a native shell, passing it the given list of {@arg args}
-#___________________
-proc gh (args :varargs[string, `$`]) :void=  sh "gh "&args.join(" ")
-  ## @descr Executes GitHub's CLI tool on a native shell, passing it the given list of {@arg args}
-#___________________
 proc touch *(trg :string|Path) :void=
   ## @descr Creates the target file if it doesn't exist.
   when defined(nimscript) :
