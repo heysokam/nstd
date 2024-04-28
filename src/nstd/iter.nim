@@ -28,3 +28,11 @@ iterator backwards *[T](arr :SomeSet[T]) :T=
   ## Inverse of `arr.items`
   for id in countdown(arr.high, arr,low): yield arr[id]
 
+#_____________________________
+macro `as` *(forLoop :ForLoopStmt) :untyped=
+  ## @descr Aliases a `for` statement with a name, so it can be broken out of with `break NAME`
+  let name = forLoop[^2][^1]
+  result = forLoop.copyNimTree
+  result[^2] = result[^2][^2]
+  result = newBlockStmt(name, result)
+
