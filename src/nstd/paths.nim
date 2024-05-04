@@ -23,6 +23,7 @@ else:
   proc writeFile *(p :Path; data :string) :void {.borrow.}
   proc hash *(p :Path) :Hash {.borrow.}
   proc copyDirWithPermissions *(a,b :Path; ignorePermissionErrors = true) :void {.borrow.}
+  proc getAppDir *() :Path=  os.getAppDir().Path
   #_____________________________
   # Extend
   const UndefinedPath * = "UndefinedPath".Path
