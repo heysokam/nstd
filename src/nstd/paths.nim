@@ -13,7 +13,7 @@ else:
   import std/dirs    as stdDirs    ; export stdDirs
   import std/appdirs as stdAppDirs ; export stdAppDirs
   import std/hashes
-  from std/strutils import splitLines
+  from std/strutils import splitLines, contains
   #_____________________________
   # Missing Procs
   proc len *(p :Path) :int    {.borrow.}
@@ -24,6 +24,7 @@ else:
   proc hash *(p :Path) :Hash {.borrow.}
   proc copyDirWithPermissions *(a,b :Path; ignorePermissionErrors = true) :void {.borrow.}
   proc getAppDir *() :Path=  os.getAppDir().Path
+  proc contains *(trg :Path; data :string) :bool= trg.string.contains(data)
   #_____________________________
   # Extend
   const UndefinedPath * = "UndefinedPath".Path
