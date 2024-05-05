@@ -15,4 +15,6 @@ func `+` *[T](A,B :OrderedSet[T]) :OrderedSet[T]=
   ## @note Could be argued that there is more than one way to order the result. This is just the simplest version.
   for a in A: result.incl a
   for b in B: result.incl b
+#___________________
+func `+=` *[T](A :var OrderedSet[T]; B :OrderedSet[T]) :void= A = A+B
 

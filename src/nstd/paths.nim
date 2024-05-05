@@ -13,7 +13,7 @@ else:
   import std/dirs    as stdDirs    ; export stdDirs
   import std/appdirs as stdAppDirs ; export stdAppDirs
   import std/hashes
-  from std/strutils import splitLines, contains
+  from std/strutils import splitLines, contains, replace
   #_____________________________
   # Missing Procs
   proc len *(p :Path) :int    {.borrow.}
@@ -26,6 +26,7 @@ else:
   proc getAppDir *() :Path=  os.getAppDir().Path
   proc contains *(trg :Path; data :string) :bool= trg.string.contains(data)
   proc contains *(trg,data :Path) :bool= trg.string.contains(data.string)
+  proc replace *(trg :Path; A,B :string|Path) :Path= trg.string.replace(A.string, B.string).Path
   #_____________________________
   # Extend
   const UndefinedPath * = "UndefinedPath".Path
