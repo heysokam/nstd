@@ -17,4 +17,10 @@ func `+` *[T](A,B :OrderedSet[T]) :OrderedSet[T]=
   for b in B: result.incl b
 #___________________
 func `+=` *[T](A :var OrderedSet[T]; B :OrderedSet[T]) :void= A = A+B
+#___________________
+iterator pairs *[T](A :HashSet[T]) :tuple[id:int, value:T]=
+  var count = 0
+  for entry in A:
+    yield (id: count, value: entry)
+    count.inc
 
