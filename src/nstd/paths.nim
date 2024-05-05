@@ -25,6 +25,7 @@ else:
   proc copyDirWithPermissions *(a,b :Path; ignorePermissionErrors = true) :void {.borrow.}
   proc getAppDir *() :Path=  os.getAppDir().Path
   proc contains *(trg :Path; data :string) :bool= trg.string.contains(data)
+  proc contains *(trg,data :Path) :bool= trg.string.contains(data.string)
   #_____________________________
   # Extend
   const UndefinedPath * = "UndefinedPath".Path
