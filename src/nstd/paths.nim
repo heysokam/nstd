@@ -16,8 +16,9 @@ else:
   from std/strutils import splitLines, contains, replace
   #_____________________________
   # Missing Procs
-  proc len *(p :Path) :int    {.borrow.}
+  proc len *(p :Path) :int {.borrow.}
   proc `$` *(p :Path) :string {.borrow.}
+  proc `<` *(A,B :Path) :bool {.borrow.}
   proc staticRead *(p :Path) :string {.borrow.}
   proc readFile *(p :Path) :string {.borrow.}
   proc writeFile *(p :Path; data :string) :void {.borrow.}

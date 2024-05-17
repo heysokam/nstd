@@ -2,7 +2,7 @@
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
 ## @fileoverview Extensions for `std/sets`
-import std/sets ; export sets
+import std/sets as stdSets ; export stdSets
 
 
 #_______________________________________
