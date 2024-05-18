@@ -13,7 +13,8 @@ else:
   import std/dirs    as stdDirs    ; export stdDirs
   import std/appdirs as stdAppDirs ; export stdAppDirs
   import std/hashes
-  from std/strutils import splitLines, contains, replace
+  from std/strutils import splitLines, contains, replace, endsWith
+  from std/sequtils import anyIt
   #_____________________________
   # Missing Procs
   proc len *(p :Path) :int {.borrow.}
@@ -28,6 +29,7 @@ else:
   proc contains *(trg :Path; data :string) :bool= trg.string.contains(data)
   proc contains *(trg,data :Path) :bool= trg.string.contains(data.string)
   proc replace *(trg :Path; A,B :string|Path) :Path= trg.string.replace(A.string, B.string).Path
+  proc endsWith *(p :Path; A :char|string|Path) :bool= p.string.endsWith(A)
   #_____________________________
   # Extend
   const UndefinedPath * = "UndefinedPath".Path
@@ -52,6 +54,12 @@ else:
   #_____________________________
   proc readLines *(trg :string|Path) :seq[string]=  trg.readFile.splitLines
     ## @descr Reads the file and returns a seq[string] where is entry is a new line of the file
+  #___________________
+  const NonExtSuffixes = [".x64"]
+  func stripFileExt *(path :Path) :Path=
+    ## @descr Removes the file extension of {@arg path} only when its not a known Non-Extension suffix
+    if NonExtSuffixes.anyIt( path.endsWith(it) ): return path
+    result = path.changeFileExt("")
   #_____________________________
   # Modification time
   from std/times import `-`, inHours
