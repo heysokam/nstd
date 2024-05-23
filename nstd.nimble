@@ -6,7 +6,7 @@ import std/[ os,strformat ]
 #___________________
 # Package
 packageName   = "nstd"
-version       = "0.5.19"
+version       = "0.5.20"
 author        = "sOkam"
 description   = "n*std | Non-Standard Nim stdlib Extensions"
 license       = "MIT"

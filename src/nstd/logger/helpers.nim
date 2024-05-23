@@ -19,7 +19,7 @@ import ./types as l
 func key *(lvl :Log) :string=
   case lvl
   of None  : raise newException(LogError, cfg.Prefix&"Tried to get the key name for log level None")
-  of Inf   : result = "Info"
+  of Info  : result = "Info"
   of Wrn   : result = "Warn"
   of Err   : result = "Error"
   of Fatal : result = "Fatal"

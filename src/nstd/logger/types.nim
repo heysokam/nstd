@@ -14,7 +14,7 @@ import ../types as base
 type Log  *{.pure.}= enum
   ## Log level of a message
   None  ## No levels active; nothing is logged
-  Inf   ## User: Information that users should be informed about.
+  Info  ## User: Information that users should be informed about.
   Wrn   ## Both: Impending problems that require some attention.
   Err   ## Both: Error conditions that the application can recover from.
   Dbg   ## Dev:  Debug Info. Anything associated with normal operation that devs need to know about.
