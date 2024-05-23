@@ -59,6 +59,15 @@ proc endsWith *(word :string; args :varargs[string, `$`]) :bool=
 
 
 #_______________________________________
+# @section New Utilities
+#_____________________________
+func wrapped *(val :string; safeWrap :bool= false) :string=
+  result.add "\""
+  result.add if not safeWrap: val else: val.replace("\\\"", "\\\\\\\"")
+  result.add "\""
+
+
+#_______________________________________
 # @section Cstring Array tools
 #_____________________________
 type CstrArray * = distinct cstringArray
