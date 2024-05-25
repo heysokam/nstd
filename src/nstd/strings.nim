@@ -70,6 +70,15 @@ func wrapped *(val :string; safeWrap :bool= false) :string=
 #_______________________________________
 # @section Cstring Array tools
 #_____________________________
+type CStringImpl {.importc: "const char*".} = cstring
+type CString * = distinct CStringImpl
+  ## @descr True Cstring Implementation. Maps to a `const char*` in codegen
+proc `$` *(s :CString) :string {.borrow.}
+
+
+#_______________________________________
+# @section Cstring Array tools
+#_____________________________
 type CstrArray * = distinct cstringArray
 proc new *(_:typedesc[CstrArray]; list :openArray[string]) :CstrArray=
   allocCstringArray(list).CstrArray
