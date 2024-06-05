@@ -6,7 +6,7 @@ import std/sets as stdSets ; export stdSets
 
 
 #_______________________________________
-# @descr Union Operations
+# @section Union Operations
 #_____________________________
 func `+` *[T](A,B :OrderedSet[T]) :OrderedSet[T]=
   ## @descr
@@ -18,10 +18,29 @@ func `+` *[T](A,B :OrderedSet[T]) :OrderedSet[T]=
 #___________________
 func `+=` *[T](A :var OrderedSet[T]; B :OrderedSet[T]) :void= A = A+B
 func `+=` *[T](A :var HashSet[T]; B :HashSet[T]) :void= A = A+B
-#___________________
+
+
+#_______________________________________
+# @section Iterators
+#_____________________________
 iterator pairs *[T](A :HashSet[T]) :tuple[id:int, value:T]=
   var count = 0
   for entry in A:
     yield (id: count, value: entry)
     count.inc
+
+
+#_______________________________________
+# @section Missing set[T] functionality
+#_____________________________
+func anyIn *[T](A,B :set[T]) :bool=
+  ## @descr Returns true if any of the elements of {@arg A} is contained in {@arg B}
+  for a in A:
+    if a in B: return true
+#___________________
+func disjoint *[T](A,B :set[T]) :bool=
+  ## @descr Returns true if none of the elements of {@arg A} is contained in {@arg B}
+  for a in A:
+    if a in B: return false
+  return true
 
