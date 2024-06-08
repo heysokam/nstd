@@ -65,6 +65,11 @@ func wrapped *(val :string; safeWrap :bool= false) :string=
   result.add "\""
   result.add if not safeWrap: val else: val.replace("\\\"", "\\\\\\\"")
   result.add "\""
+#___________________
+func wrappedIn *(val :string; before,after :char|string) :string=
+  let bfr = when before is char: $before else: before
+  let aft = when after  is char: $after  else: after
+  result = bfr & val & aft
 
 
 #_______________________________________
