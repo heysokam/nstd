@@ -62,14 +62,21 @@ proc endsWith *(word :string; args :varargs[string, `$`]) :bool=
 # @section New Utilities
 #_____________________________
 func wrapped *(val :string; safeWrap :bool= false) :string=
+  ## @descr Returns {@arg val} wrapped between quotes
+  ## @note Replaces every instance of \" with its escaped version when {@arg safeWrap} is true
   result.add "\""
   result.add if not safeWrap: val else: val.replace("\\\"", "\\\\\\\"")
   result.add "\""
 #___________________
 func wrappedIn *(val :string; before,after :char|string) :string=
+  ## @descr Returns {@arg val} wrapped between characters {@arg before} and {@arg after}
   let bfr = when before is char: $before else: before
   let aft = when after  is char: $after  else: after
   result = bfr & val & aft
+#___________________
+func otherwise *(val,other :string) :string=
+  ## @descr Returns {@arg other} if {@arg val} is empty or consists only of whitespace.
+  if val.isEmptyOrWhitespace: other else: val
 
 
 #_______________________________________
