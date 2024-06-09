@@ -4,7 +4,7 @@
 # @deps std
 from std/macros as m import add
 from std/os import lastPathPart
-from std/algorithm import reversed
+from std/algorithm import sorted
 # @deps ndk
 from ./strings import endsWith
 
@@ -23,7 +23,7 @@ macro importAll *(dir :static[string]; importOnly :static[openArray[string]]= []
     if filter and file.path.lastPathPart notin importOnly: continue
     list.add file.path
   # └─ Generate the import AST nodes
-  for file in list.reversed:
+  for file in list.sorted:
     result.add( m.newTree(
       m.nnkImportStmt,
       m.newLit(file)
@@ -43,7 +43,7 @@ macro importAllRec *(dir :static[string]; importOnly :static[openArray[string]]=
     if filter and file.lastPathPart notin importOnly: continue
     list.add file
   # └─ Generate the import AST nodes
-  for file in list.reversed:
+  for file in list.sorted:
     result.add( m.newTree(
       m.nnkImportStmt,
       m.newLit(file)
