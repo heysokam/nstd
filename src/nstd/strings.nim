@@ -2,7 +2,7 @@
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
 # @deps nstd
-import ./types as nstd
+from ./cfg import StringSeparator
 
 
 #_______________________________________
@@ -77,6 +77,12 @@ func wrappedIn *(val :string; before,after :char|string) :string=
 func otherwise *(val,other :string) :string=
   ## @descr Returns {@arg other} if {@arg val} is empty or consists only of whitespace.
   if val.isEmptyOrWhitespace: other else: val
+#___________________
+func `+` *(A,B :string; sep :string= cfg.StringSeparator) :string=  A & sep & B
+  ## @descr
+  ##  Returns strings {@arg A} and {@arg B} concatenated.
+  ##  Adds {@arg sep} in between the strings when passed.
+  ##  Adds the default {@link cfg.StringSeparator} in between the strings when omitted.
 
 
 #_______________________________________
