@@ -6,7 +6,7 @@ import std/[ os,strformat ]
 #___________________
 # Package
 packageName   = "nstd"
-version       = "0.5.29"
+version       = "0.5.30"
 author        = "sOkam"
 description   = "n*std | Non-Standard Nim stdlib Extensions"
 license       = "MIT"
@@ -32,7 +32,7 @@ requires "nim >= 1.9.1"
 #___________________
 const vlevel = when defined(debug): 2 else: 1
 const mode   = when defined(debug): "-d:debug" elif defined(release): "-d:release" elif defined(danger): "-d:danger" else: ""
-let nimcr = &"nim c -r --verbosity:{vlevel} {mode} --hint:Conf:off --hint:Link:off --hint:Exec:off --outdir:{binDir}"
+let nimcr = &"nimc c -r --verbosity:{vlevel} {mode} --hint:Conf:off --hint:Link:off --hint:Exec:off --outdir:{binDir}"
   ## Compile and run, outputting to binDir
 proc runFile (file, dir, args :string) :void=  exec &"{nimcr} {dir/file} {args}"
   ## Runs file from the given dir, using the nimcr command, and passing it the given args

@@ -1,9 +1,9 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-# std dependencies
+# @deps std
 import std/unittest
-# n*std dependencies
+# @deps n*std
 import nstd
 # Specific for this test
 import std/os
@@ -46,7 +46,7 @@ test nstd.Prefix&" Logger: Constructors":
 #____________________________________________________
 test nstd.Prefix&" Logger: Helpers":
   # Log Level Keynames
-  check Log.Inf.key   == "Info"
+  check Log.Info.key  == "Info"
   check Log.Wrn.key   == "Warn"
   check Log.Err.key   == "Error"
   check Log.Fatal.key == "Fatal"
@@ -67,7 +67,7 @@ test nstd.Prefix&" Logger: Helpers":
   check PattTrace   == "{getStackTrace()}"
   when off:  # Cannot check these, because they have a date. #todo: Would need to regex or pattern match them
     let con  = newConLogger(currentSourcePath().lastPathPart().changeFileExt("")&"_conLogger")
-    echo con.formatMsg(Log.Inf,   "test info message ",    42, 1234)
+    echo con.formatMsg(Log.Info,  "test info message ",    42, 1234)
     echo con.formatMsg(Log.Wrn,   "test warning message ", 42, 5678)
     echo con.formatMsg(Log.Err,   "test error message ",   42, 9012)
     echo con.formatMsg(Log.Fatal, "test fatal message ",   42, 3456)
@@ -77,20 +77,20 @@ test nstd.Prefix&" Logger: Helpers":
 test nstd.Prefix&" Logger: Helpers":
   # File Logger process
   let logg = newFileLogger(currentSourcePath().lastPathPart().changeFileExt("")&"_fileLogger")
-  try: logg.log(Log.Inf, "Test Writing to a file.")
+  try: logg.log(Log.Info, "Test Writing to a file.")
   except LogError: check false
   check helpers.getDefaultFile().string.readFile != ""
   logg.clear()
   check helpers.getDefaultFile().string.readFile == ""
   try:
-    for id in 0..<100: logg.log(Log.Inf, "Test Writing to a file ", id)
+    for id in 0..<100: logg.log(Log.Info, "Test Writing to a file ", id)
   except LogError: check false
   try:
     for id in 0..<25:
-      logg.log(Log.Inf, "Test Writing to a file ", id)
+      logg.log(Log.Info, "Test Writing to a file ", id)
       logg.trc("Test Writing trace to a file ", id)
       logg.dbg("Test Writing debug to a file ", id)
-      logg.inf("Test Writing info  to a file ", id)
+      logg.info("Test Writing info  to a file ", id)
       logg.wrn("Test Writing warn  to a file ", id)
       logg.err("Test Writing error to a file ", id)
       logg.fatal("Test Writing fatal to a file ", id)
@@ -99,3 +99,4 @@ test nstd.Prefix&" Logger: Helpers":
   logg.clear()
   check helpers.getDefaultFile().string.readFile == ""
   helpers.getDefaultFile().string.removeFile()
+

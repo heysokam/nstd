@@ -1,8 +1,9 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-# std dependencies
+# @deps std
 import std/sets
+import std/macros
 
 
 #_____________________________
