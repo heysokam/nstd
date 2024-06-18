@@ -5,6 +5,10 @@
 
 #____________________________________________________
 const NimScript * = defined(nimscript) or defined(js)
-  ## True for the nimscript and js targets.
-  ## Same as `WeirdTarget` from std, but with a clearer name pointing at the -language- features.
+  ## @descr
+  ##  True for the nimscript and js targets.
+  ##  Same as `WeirdTarget` from std, but with a clearer name pointing at the -language- features.
+#____________________________________________________
+const debug *{.booldefine.}= defined(debug) or not (defined(release) or defined(danger))
+  ## @descr True when neither `-d:release` or `-d:danger` are defined on CLI, or when `-d:debug` is defined
 
