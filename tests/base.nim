@@ -1,9 +1,9 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-include ./base
+# std dependencies
+import std/unittest
+unittest.abortOnError = on
+# n*std dependencies
+import nstd
 
-
-#____________________________________________________
-test nstd.Prefix&" Skel":
-  check true

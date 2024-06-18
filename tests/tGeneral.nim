@@ -1,10 +1,7 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-# std dependencies
-import std/unittest
-# n*std dependencies
-import nstd
+include ./base
 
 
 #____________________________________________________
@@ -57,15 +54,15 @@ test nstd.Prefix&" Markers: Todo template":
   todo "this is a todo test"
   check report() == """
 two
-  tGeneral.nim(52,20): todo test2
+  tGeneral.nim(49,20): todo test2
 testing
-  tGeneral.nim(56,6): todo test0
+  tGeneral.nim(53,6): todo test0
 nstd
-  tGeneral.nim(57,2): this is a todo test
+  tGeneral.nim(54,2): this is a todo test
 three
-  tGeneral.nim(53,20): todo test3
+  tGeneral.nim(50,20): todo test3
 todo
-  tGeneral.nim(51,20): todo test
+  tGeneral.nim(48,20): todo test
 """
 
 #____________________________________________________

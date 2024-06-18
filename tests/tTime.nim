@@ -1,10 +1,7 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-# std dependencies
-import std/unittest
-# n*std dependencies
-import nstd
+include ./base
 # Specific for this test
 import std/monotimes
 import std/times

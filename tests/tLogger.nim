@@ -1,14 +1,9 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-# @deps std
-import std/unittest
-# @deps n*std
-import nstd
+include ./base
 # Specific for this test
 import std/os
-import std/strformat
-import std/times
 import nstd/logger/helpers
 
 
