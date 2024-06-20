@@ -14,8 +14,6 @@ import nstd/compile    ## Buildsystem helpers for compiling C code from inside N
 import nstd/convert    ## Type conversion tools
 import nstd/defines    ## General-purpose defines, for ergonomics
 import nstd/modules    ## Nim Modules management (import, include) tools
-import nstd/dirs       ## Tools for dir management
-import nstd/files      ## Tools for managing the PathFile type
 import nstd/format     ## Tools for formatting of text on console and logs
 import nstd/git        ## Git-related tools
 import nstd/iter       ## Extra Iterators
@@ -24,7 +22,7 @@ import nstd/markers    ## Templates for marking code paths in different ways (to
 import nstd/macros     ## Extra Macros
 import nstd/node       ## Node type and functionality
 import nstd/opts       ## CLI option tools
-import nstd/paths      ## os.paths missing procs (borrow from string) and extensions
+import nstd/paths      ## Path Utilities  (Multi-Part type, non-destructive, automation and management)
 import nstd/size       ## sizeof() extensions
 import nstd/time       ## Ergonomic helpers for managing time
 
