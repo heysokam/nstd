@@ -1,7 +1,7 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
 #:____________________________________________________
-# n*std dependencies
+# @deps n*std
 import ../cfg
 import ./types
 import ./helpers

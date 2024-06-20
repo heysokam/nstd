@@ -1,53 +1,60 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  |
 #:____________________________________________________
-# std dependencies
+# @deps std
 import std/os
-import std/strformat
-import std/strutils
 from std/times import now, format
-# n*std dependencies
+# @deps n*std
 import ../types as base
 import ../cfg
+import ../errors
 import ../paths
-# logger dependencies
+import ../strings
+# @deps n*std.logger
 import ./types as l
 
+
 #_______________________________________
-# Alternative Field access
+# @section Alternative Field access
 #___________________
-func key *(lvl :Log) :string=
+func key *(lvl :Log) :str=
   case lvl
-  of None  : raise newException(LogError, cfg.Prefix&"Tried to get the key name for log level None")
+  of None  : LogError.trigger "Tried to get the key name for log level None"
   of Info  : result = "Info"
   of Wrn   : result = "Warn"
   of Err   : result = "Error"
   of Fatal : result = "Fatal"
   of Dbg   : result = "Debug"
   of Trc   : result = "Trace"
-  of All   : raise newException(LogError, cfg.Prefix&"Tried to get the key name for log level All")
+  of All   : LogError.trigger "Tried to get the key name for log level All"
+
 
 #_______________________________________
-# Files
+# @section Files
 #___________________
-proc getDefaultFile *() :Path {.inline.}=  Path( os.getAppFilename().changeFileExt("log") )  # aka: /path/to/app/binary.log
-  ## Returns the path that will be set by default when omitted.
+proc getDefaultFile *() :Path {.inline.}=
+  ## @descr Returns the path that will be set by default when omitted.
+  let (dir, name, _) = os.getAppFilename().splitFile
+  result = Path.new(dir, name&".log")  # aka: /path/to/app/binary.log
 #___________________
 proc getFileHandle (file :Path; kind :l.Kind; toStderr :bool= false) :File=
-  ## Returns the correct file handle for the logger kind.
-  ## toStderr will be ignored if the kind is not a ConLogger
+  ## @descr
+  ##  Returns the correct file handle for the logger kind.
+  ##  If {@arg toStderr} is true, the console logger will output to {@link stderr}
+  ## @note {@arg toStderr} will be ignored if the kind is not a ConLogger
   case kind:
   of ConLogger:
     result = if toStderr: stderr else: stdout
   of FileLogger:
-    if file == UndefinedPath: raise newException(LogError, &"{cfg.Prefix} Tried to initialize a FileLogger with an uninitialized Path.")
-    result = file.string.open(mode = fmAppend)
+    if file == UndefinedPath: LogError.trigger "Tried to initialize a FileLogger with an uninitialized Path."
+    result = file.toStr.open(mode = fmAppend)
 #___________________
-proc getPathFile *(file :Path; kind :l.Kind; toStderr :bool= false) :PathFile=
-  result = PathFile(path: file, handle: file.getFileHandle(kind, toStderr), mode: fmAppend)
+proc getPathFile *(file :Path; kind :l.Kind; toStderr :bool= false) :PathHandle=
+  result = PathHandle(file: file, handle: file.getFileHandle(kind, toStderr), mode: fmAppend)
+
 
 #_______________________________________
-# Format Message
+# @section Format Message
 #_____________________________
 # Message Data
 # __________________
