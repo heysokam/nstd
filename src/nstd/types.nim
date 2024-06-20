@@ -1,8 +1,6 @@
 #:____________________________________________________
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
-# std dependencies
-from std/paths import Path
 
 
 #_______________________________________
@@ -32,13 +30,6 @@ type ByteAddr * = uint
 #_______________________________________
 # Extensions
 #_____________________________
-type PathFile * = object
-  ## A type that contains a Path, its File handle and its opening mode
-  path   *:Path
-  handle *:File
-  mode   *:FileMode
-
-#___________________
 type Version *[T]= object
   ## @descr Generic Version type with the format (Major, minor, patch)
   M  *:T  ## Major version ID

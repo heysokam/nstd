@@ -12,8 +12,6 @@ import ./nstd/binary    ; export binary
 import ./nstd/compile   ; export compile
 import ./nstd/convert   ; export convert
 import ./nstd/defines   ; export defines
-import ./nstd/dirs      ; export dirs
-import ./nstd/files     ; export files
 import ./nstd/format    ; export format
 import ./nstd/git       ; export git
 import ./nstd/iter      ; export iter

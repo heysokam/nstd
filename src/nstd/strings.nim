@@ -100,6 +100,6 @@ proc `$` *(s :CString) :string {.borrow.}
 type CstrArray * = distinct cstringArray
 proc new *(_:typedesc[CstrArray]; list :openArray[string]) :CstrArray=
   allocCstringArray(list).CstrArray
-proc `=destroy` *(arr :var CstrArray) :void=
+proc `=destroy` *(arr :CstrArray) :void=
   deallocCstringArray(arr.cstringArray)
 
