@@ -60,3 +60,4 @@ task docgen, "Internal:  Generates documentation using Nim's docgen tools.":
   exec &"nim doc --project --index:on --git.url:{gitURL} --outdir:{docDir}/gen src/{packageName}.nim"
   echo &"{packageName}: Done with docgen."
 
+task paths, "Internal: Runs the tests for paths":  runTest"./tests/tPaths.nim"

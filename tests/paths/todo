@@ -1,0 +1,10 @@
+# Both
+# proc chgDir *(
+
+# List
+func join *(
+proc chgDir *(
+func shouldSkip (filters :openArray[string]; file :string) :bool=
+proc glob *(
+proc glob *(
+
