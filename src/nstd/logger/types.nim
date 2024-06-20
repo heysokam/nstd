@@ -6,6 +6,7 @@
 #:____________________________________________________
 # n*std dependencies
 import ../types as base
+import ../paths/types as paths
 
 
 #_______________________________________
@@ -39,11 +40,11 @@ type LvlFunc * = proc (lvl :Log; args: varargs[string, `$`]) :void
 #___________________
 type Kind * = enum ConLogger, FileLogger
 type Logger * = ref object
-  name      *:str       ## Format string to prepend to each log message
-  threshold *:Log       ## Only messages that are at or below this threshold will be logged
-  flushLvl  *:Log       ## Only messages that are at or below this threshold will be flushed immediately
-  verbose   *:bool      ## TODO: Whether messages on this logger will be verbose or not
-  file      *:PathFile  ## The wrapped file. Its handle will become stderr/stdout for the ConLogger kind
+  name      *:str        ## Format string to prepend to each log message
+  threshold *:Log        ## Only messages that are at or below this threshold will be logged
+  flushLvl  *:Log        ## Only messages that are at or below this threshold will be flushed immediately
+  verbose   *:bool       ## TODO: Whether messages on this logger will be verbose or not
+  file      *:PathHandle ## The wrapped file. Its handle will become stderr/stdout for the ConLogger kind
   case kind *:Kind
   of ConLogger  : discard
   of FileLogger : discard
