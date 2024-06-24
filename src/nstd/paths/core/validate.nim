@@ -48,18 +48,19 @@ proc exists *(P :Path) :bool {.inline.}=
 #_____________________________
 func isKind *(P :Path; K :Kind) :bool {.inline.}=  P.kind == K
 #___________________
-# proc isFile *(input :string|Path) :bool=  (input.len < 32_000) and (Path(input) != UndefinedPath) and (input.fileExists())
-proc isFile *(P :Path) :bool {.inline.}=  P.isKind(Kind.File) or (P.path.len < 32_000 and os.fileExists(P.path))
+proc isFile *(P :Path) :bool {.inline.}=
+  if P.isKind Kind.Undefined: return false
+  result = P.isKind(Kind.File) or (P.path.len < 32_000 and os.fileExists(P.path))
   ## @descr Returns true if the input is a file.
   ##  Returns false:
   ##  : If path == Dir | UndefinedPath
   ##  : If the file exists but the length of the path is too long  (> 32_000)
 #___________________
-func isDir  *(P :Path) :bool {.inline.}=  P.isKind Kind.Dir
+func isDir *(P :Path) :bool {.inline.}=  P.isKind Kind.Dir
 #___________________
 func hasSub *(P :Path) :bool {.inline.}=
   case P.kind
-  of SomePath : P.sub.string != ""
+  of SomePath : P.sub != ""
   else        : false
 #___________________
 const NonExtSuffixes = [".x64"]
@@ -69,6 +70,8 @@ func hasExt *(P :Path) :bool=
     if P.ext == "" : return false
     else           : return not NonExtSuffixes.anyIt( P.path.endsWith(it) )  # none of the NonExtSuffixes match the end of P.path
   else             : return false
+#___________________
+func isAbsolute  *(P :Path) :bool {.inline.}=  os.isAbsolute(P.path)
 
 
 #______________________________________

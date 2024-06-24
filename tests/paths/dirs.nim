@@ -4,9 +4,8 @@
 # @deps All Tests
 include ../base
 # @deps std
-from std/os import nil
+from std/os import `/`
 import std/importutils as imp
-from std/paths as std import `==`, `/`
 # @deps n*std.paths
 import nstd/paths/types {.all.} as paths
 # @deps Paths Tests
@@ -18,9 +17,9 @@ import ./data
 #_____________________________
 suite "Paths: Directory Names":
   #_____________________________
-  test "thisDir"    : check os.lastPathPart(    nstd.paths.thisDir() ) == "paths"
-  test "thisFile"   : check os.lastPathPart(   nstd.paths.thisFile() ) == "dirs.nim"
-  test "projectDir" : check os.lastPathPart( nstd.paths.projectDir() ) == ""
+  test "thisDir"    : check os.lastPathPart(    nstd.paths.thisDir().path ) == "paths"
+  test "thisFile"   : check os.lastPathPart(   nstd.paths.thisFile().path ) == "dirs.nim"
+  test "projectDir" : check os.lastPathPart( nstd.paths.projectDir().path ) == ""
 
 
 #_______________________________________

@@ -36,26 +36,26 @@ import ./core/access
 proc read *(P :Fil) :string {.inline.}=
   case P.kind
   of Kind.File : result = system.readFile( toStr(P) )
-  of Kind.Dir  : PathError.trigger &"Tried to read data from a folder Path:  {P}"
-  else         : PathError.trigger &"Tried to read from an invalid Path:  {P}"
+  of Kind.Dir  : PathError.trigger &"Tried to read data from a folder Path:  {P.path}"
+  else         : PathError.trigger &"Tried to read from an invalid Path:  {P.path}"
 #___________________
 proc read_static *(P :Fil) :string {.inline.}=
   case P.kind
   of Kind.File : result = system.staticRead( toStr(P) )
-  of Kind.Dir  : PathError.trigger &"Tried to read data from a folder Path:  {P}"
-  else         : PathError.trigger &"Tried to read from an invalid Path:  {P}"
+  of Kind.Dir  : PathError.trigger &"Tried to read data from a folder Path:  {P.path}"
+  else         : PathError.trigger &"Tried to read from an invalid Path:  {P.path}"
 #___________________
 proc write *(P :Fil; data :string) :void {.inline.}=
   case P.kind
   of Kind.File : system.writeFile( toStr(P), data )
-  of Kind.Dir  : PathError.trigger &"Tried to write data to a folder Path:  {P}"
-  else         : PathError.trigger &"Tried to write to an invalid Path:  {P}"
+  of Kind.Dir  : PathError.trigger &"Tried to write data to a folder Path:  {P.path}"
+  else         : PathError.trigger &"Tried to write to an invalid Path:  {P.path}"
 #___________________
 proc erase *(P :Fil) :void {.inline.}=
   case P.kind
   of Kind.File : system.writeFile( toStr(P), "" )
-  of Kind.Dir  : PathError.trigger &"Erasing a folder is not implemented yet:  {P}"
-  else         : PathError.trigger &"Tried to erase an invalid Path:  {P}"
+  of Kind.Dir  : PathError.trigger &"Erasing a folder is not implemented yet:  {P.path}"
+  else         : PathError.trigger &"Tried to erase an invalid Path:  {P.path}"
 #___________________
 proc setExec *(trg :Fil) :void=
   ## @descr Sets the given {@arg trg} file flags to be executable for the current user.
@@ -66,8 +66,8 @@ proc setExec *(trg :Fil) :void=
 # @section File Path: Fields Management
 #_____________________________
 func changeExt *(P :Path; ext :string) :Path=
-  if P.kind notin SomePath : PathError.trigger &"Tried to change the extension of an invalid Path:  {P}"
-  if P.kind != Kind.File   : PathError.trigger &"Tried to change the extension of Folder Path:  {P}"
+  if P.kind notin SomePath : PathError.trigger &"Tried to change the extension of an invalid Path:  {P.path}"
+  if P.kind != Kind.File   : PathError.trigger &"Tried to change the extension of Folder Path:  {P.path}"
   result     = P
   result.ext = ext
 #___________________

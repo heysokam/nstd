@@ -85,7 +85,9 @@ proc mv *(src,trg :string|Path) :void=
   when defined(nimscript) : mvFile(src, trg)
   else                    : os.moveFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
 #___________________
-proc md *(trg :Dir) :void {.inline.}=  trg.create
+proc md *(trg :Dir) :void {.inline.}=
+  if trg.exists : l.dbg &"Folder already exists. Not creating:  {trg}"; return
+  trg.create
 #___________________
 proc ln *(src,trg :string|Path; symbolic :bool= true) :void {.inline.}=
   ## @descr Creates a symbolic link from {@arg src} to {@arg trg}

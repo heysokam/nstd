@@ -11,12 +11,10 @@ import std/importutils as imp
 from ../markers import unreachable
 import ../errors
 import ../strings
-import ../logger as l
 # @deps n*std.paths
 import ./types {.all.} as paths
 imp.privateAccess(paths.Path)
 import ./core/access
-import ./core/validate
 
 
 #_______________________________________
@@ -24,7 +22,6 @@ import ./core/validate
 #_____________________________
 proc create *(dir :Dir) :void=
   if dir.kind != paths.Kind.Dir: PathError.trigger &"Tried to create a folder, but its path is incorrect:  {dir}"
-  if dir.exists           : l.dbg &"Folder already exists. Not creating:  {dir}"; return
   when defined(nimscript) : mkDir(trg.path)
   else                    : os.createDir(dir.path)
 
@@ -70,4 +67,7 @@ iterator walk *(P :Dir) :Path=
     if   os.fileExists(entry) or F.ext != "" : yield paths.newFile(F.dir, F.name&F.ext)
     elif os.dirExists(entry)  or F.ext == "" : yield paths.newDir(F.dir/F.name)
     else                                     : unreachable
+#___________________
+iterator walkDir *(P :Fil) :Path=
+  for entry in paths.newDir(P.dir, P.sub).walk: yield entry
 

@@ -60,14 +60,16 @@ func `ext=` *(P :var Path; val :string) :void {.inline.}=
 #_______________________________________
 # @section Path: Combined Names
 #_____________________________
-#_____________________________
-func basename *(P :Path) :string {.inline.}=
-  if P.kind notin SomePath: PathError.trigger &"Tried to access the basename of an UndefinedPath:  {P}"
-  result = os.addFileExt(P.name, P.ext)
-#_____________________________
 func dirSub *(P :Path) :string {.inline.}=
   if P.kind notin SomePath: PathError.trigger &"Tried to access the dir+sub values of an UndefinedPath:  {P}"
   result = P.dir/P.sub
+#_____________________________
+func basename *(P :Path) :string {.inline.}=
+  if P.kind notin SomePath: PathError.trigger &"Tried to access the basename of an UndefinedPath:  {P}"
+  case P.kind
+  of Kind.File : result = os.addFileExt(P.name, P.ext)
+  of Kind.Dir  : result = os.lastPathPart(P.dirSub)
+  else         : unreachable
 #_____________________________
 func path *(P :Path) :string {.inline.}=
   ## @descr Converts {@arg P} to its complete path representation.
@@ -112,24 +114,39 @@ proc debug *(P :Path) :string=
 func `/` (P :std.Path; S :string) :std.Path=  P/std.Path(S)
 func `/` (S :string; P :std.Path) :std.Path=  std.Path(S)/P
 #___________________
-func `/` *(P :Path; S :string) :Path=
-  result = P
+proc `/` *(P :Path; S :string) :Path=
+  # @note Ugly as hell. This function has so many edge cases to make it smart enough to recognize a Dir-to-File or File-to-Dir change
+  let F          = os.splitFile(S)
+  let isDotDir   = S == "." or S == ".."
+  let mightBeDir = (not isDotDir and S.startsWith(".") and F.ext != "")
+  let kind       =
+    if   isDotDir                               : Kind.Dir
+    elif mightBeDir and os.dirExists(P.path/S)  : Kind.Dir
+    elif mightBeDir and os.fileExists(P.path/S) : Kind.File
+    elif F.ext != ""                            : Kind.File
+    else                                        : P.kind  # TODO: Probably wont work, because *Exists won't trigger for new paths
+  case kind
+  of Kind.Dir  : result = P # Keep dirs as dirs
+  of Kind.File : result = paths.newFile(P.dir, F.name, F.ext, sub=P.sub)
+  else         : unreachable
+
   case P.kind
   of Kind.Dir             :
-    if P.sub.string != "" : result.sub = P.sub/S
-    else                  : result.dir = P.dir/S
+    if   P.sub != ""      : result.sub = result.sub/S
+    elif kind == Kind.Dir : result.dir = result.dir/S
+    else                  : discard
   of Kind.File            :
-    if P.ext == ""        : result.name = P.name/S
+    if P.ext == ""        : result.name = result.name/S
     else                  : PathError.trigger &"Tried to join a string into a File Path, but the file has an extension:  {P} : {S}"
   else                    : PathError.trigger &"Tried to join a string into an invalid Path:  {P} : {S}"
 #___________________
-func `/` *(S :string; P :Path) :Path=
+proc `/` *(S :string; P :Path) :Path=
   result = P
   case P.kind
   of paths.SomePath : result.dir = S/P.dir
   else              : PathError.trigger &"Tried to join a string into an invalid Path:  {P} : {S}"
 #___________________
-func `/` *(A,B :Path) :Path=
+proc `/` *(A,B :Path) :Path=
   if A.kind notin SomePath : PathError.trigger &"Tried to join a two paths, but the first one was invalid:  {A} : {B}"
   if B.kind notin SomePath : PathError.trigger &"Tried to join a two paths, but the second one was invalid:  {A} : {B}"
   case A.kind
@@ -140,12 +157,15 @@ func `/` *(A,B :Path) :Path=
     else         : unreachable
   of Kind.File   :
     case B.kind
-    of Kind.Dir  : PathError.trigger &"Tried to join the paths of a file and a folder together, but the file was send as the first argument:  {A} : {B}" # File/Dir
-    of Kind.File : PathError.trigger &"Tried to join the paths of two files together:  {A} : {B}" # File/File
+    of Kind.Dir  : PathError.trigger &"Tried to join the paths of a file and a folder together, but the file was send as the first argument:  {A.path} : {B.path}" # File/Dir
+    of Kind.File : PathError.trigger &"Tried to join the paths of two files together:  {A.path} : {B.path}" # File/File
     else         : unreachable
   else           : unreachable
 #___________________
-proc absolute *(P,root :Path) :Path=
+proc absolute *(
+    P    : Path;
+    root : Dir = paths.newdir(os.getCurrentDir())
+  ) :Path=
   if P.kind   notin paths.SomePath: PathError.trigger &"Tried to get the absolute path of a Path, but the first argument is an invalid Path:  {P} : {root}"
   if root.kind notin paths.SomePath: PathError.trigger &"Tried to get the absoluterelative path of a Path, but the second argument is an invalid Path:  {P} : {root}"
   let dir = os.absolutePath(P.dirSub, root.dirSub)
