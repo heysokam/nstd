@@ -30,7 +30,7 @@ func path *(
   ) :Path=
   result = newFile(dir= dir, base= when base is std.Path: base.string else: base, sub=sub)
 #___________________
-func new *(_:typedesc[Path];
+func new *(_:typedesc[Path|Dir|Fil];
     dir  : string|std.Path;
     base : string|std.Path = std.Path"";
     sub  : string|std.Path = std.Path"";
@@ -38,13 +38,22 @@ func new *(_:typedesc[Path];
   let base = when base is std.Path: base.string else: base
   if base == "" : result = path(dir=dir, sub=sub)
   else          : result = path(dir=dir, base=base, sub=sub)
+#___________________
+func new *(_:typedesc[Fil];
+    D    : Dir;
+    base : string|std.Path;
+    sub  : string|std.Path = std.Path"";
+  ) :Path=
+  let sub = when sub is std.Path: sub.string else: sub
+  if sub == "" : result = newFile(dir=D.dir, base= when base is std.Path: base.string else: base, sub=sub)
+  else         : result = newFile(dir=D.dir, base= when base is std.Path: base.string else: base, sub=D.sub)
 
 
 #_______________________________________
 # @section PathHandle Constructors
 #_____________________________
 proc new *(_:typedesc[PathHandle];
-    file   : Path;
+    file   : Fil;
     handle : File     = nil;
     mode   : FileMode = fmAppend;
   ) :PathHandle=

@@ -2,12 +2,13 @@
 #  nstd  |  Copyright (C) Ivan Mar (sOkam!)  |  MIT  :
 #:____________________________________________________
 # @deps std
-from std/os import execShellCmd
-import std/[ strformat,strutils ]
+from std/os import execShellCmd, removeFile, removeDir, dirExists, fileExists, walkDir, pcFile, pcDir
 from std/symlinks import createSymlink
+from std/strutils import join
 # @deps nstd
 import ./logger as l
-from ./paths import Path, setCurrentDir, removeFile, removeDir, dirExists, walkDir, pcFile, pcDir
+import ./paths
+from ./strings import `&`
 
 
 #_______________________________________
@@ -36,14 +37,13 @@ when not defined(nimscript):
 # @section Nimscript compatibility for compiled code
 #___________________
 when not defined(nimscript):
-  proc rm *(file :string|Path)=  paths.removeFile(when file is Path: file else: file.Path)
-  proc rmDir *(dir :string|Path)=  paths.removeDir(when dir is Path: dir else: dir.Path)
+  template rm *(P :Path) :void= P.remove
   template withDir *(trg :string|Path; body :untyped)=
     let prev = paths.getCurrentDir()
-    l.dbg "Temporarily entering folder  ", when trg is Path: trg.string else: trg
-    paths.setCurrentDir(when trg is Path: trg else: trg.string)
+    l.dbg &"Temporarily entering folder  " & $trg
+    paths.setCurrentDir(when trg is Path: trg else: paths.newDir(dir))
     body  # Run the code inside the block
-    l.dbg "Returning to folder  ", prev.string
+    l.dbg &"Returning to folder  " & $prev
     paths.setCurrentDir(prev)
   #___________________
   import std/envvars
@@ -53,7 +53,7 @@ when not defined(nimscript):
 # @section Commands
 #___________________
 proc sh *(cmd:string; args :varargs[string, `$`]) :void {.inline.}=
-  let command = cmd & " " & args.join(" ")
+  let command = &"{cmd}" & args.join(" ")
   l.dbg "Executing command:\n  ", command
   try:
     when defined(nimscript): exec command
@@ -62,12 +62,16 @@ proc sh *(cmd:string; args :varargs[string, `$`]) :void {.inline.}=
   except: raise newException(OSError, &"Failed to run:  {command}")
 #___________________
 proc cp *(src,trg :string|Path) :void=
-  when defined(nimscript) : cpFile(src, trg)
-  else                    : os.copyFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
-#___________________
-proc cpDir *(src,trg :string|Path) :void=
-  when defined(nimscript) : cpDir(src, trg)
-  else                    : os.copyDir(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
+  when src is string and trg is string:
+    if os.fileExists(src) :
+      when defined(nimscript) : cpFile(src, trg)
+      else                    : os.copyFile(src, trg)
+    elif os.dirExists(src)    :
+      when defined(nimscript) : cpDir(src, trg)
+      else                    : os.copyDir(src, trg)
+  elif src is Path and trg is Path:
+    cp src.path, trg.path
+  else: unreachable
 #___________________
 proc cpDir *(src,trg :string|Path; filter :openArray[string|Path]) :void=
   ## @descr Alternative {@link cpDir} that supports passing a list of {@arg filter} paths to ignore
@@ -81,10 +85,7 @@ proc mv *(src,trg :string|Path) :void=
   when defined(nimscript) : mvFile(src, trg)
   else                    : os.moveFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
 #___________________
-proc md *(trg :string|Path) :void {.inline.}=
-  if dirExists(trg)       : l.dbg &"Folder already exists. Not creating:  {trg}"; return
-  when defined(nimscript) : mkDir(trg)
-  else                    : os.createDir( when trg is Path: trg.string else: trg )
+proc md *(trg :Dir) :void {.inline.}=  trg.create
 #___________________
 proc ln *(src,trg :string|Path; symbolic :bool= true) :void {.inline.}=
   ## @descr Creates a symbolic link from {@arg src} to {@arg trg}

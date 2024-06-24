@@ -36,7 +36,9 @@ type Path * = object
     ext_p  :string
   else: discard
 #___________________
-type PathList * = seq[Path]
+type PathList * = seq[Path]  ## @descr List of Paths
+type Dir      * = Path       ## @descr Alias for readability
+type Fil      * = Path       ## @descr Alias for readability
 #_____________________________
 const UndefinedPath * = Path(kind: Kind.Undefined)
   ## @descr Defines an Undefined Path, so that error messages are clearer. Mostly for error checking.
@@ -44,7 +46,7 @@ const UndefinedPath * = Path(kind: Kind.Undefined)
 #_____________________________
 type PathHandle * = object
   ## @descr Path to a file, its File handle and its opening mode
-  file    *:Path
+  file    *:Fil
   handle  *:File
   mode    *:FileMode
 
@@ -53,22 +55,24 @@ type PathHandle * = object
 #_______________________________________
 # @section Path Constructors
 #_____________________________
-func newDir (
+func newDir *(
     dir : string|std.Path;
     sub : string|std.Path = std.Path"";
   ) :Path=
-  result     = Path(kind: Kind.Dir)
+  result       = Path(kind: Kind.Dir)
   result.dir_p = when dir is std.Path: dir else: std.Path dir
   result.sub_p = when sub is std.Path: sub else: std.Path sub
 #___________________
-func newFile (
+func newFile *(
     dir  : string|std.Path;
     base : string|std.Path;
     sub  : string|std.Path = std.Path"";
   ) :Path=
-  result      = Path(kind: Kind.File)
+  result        = Path(kind: Kind.File)
   result.dir_p  = when dir is std.Path: dir else: std.Path dir
   result.sub_p  = when sub is std.Path: sub else: std.Path sub
   result.name_p = std.Path os.splitFile(when base is Path: base.string else: base).name
   result.ext_p  = os.splitFile(when base is Path: base.string else: base).ext
+#___________________
+func newEmpty *[T :Path|Fil|Dir](_:typedesc[T]) :T {.inline.}=  UndefinedPath
 

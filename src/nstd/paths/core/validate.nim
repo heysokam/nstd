@@ -6,6 +6,8 @@
 # @deps std
 from std/os import nil
 import std/importutils as imp
+from std/sequtils import anyIt
+from std/times import getTime, inHours, `-`
 # @deps n*std
 import ../../strings
 import ../../errors
@@ -20,15 +22,14 @@ import ./access
 # proc contains *(trg :Path; data :string) :bool= trg.string.contains(data)
 # proc contains *(trg,data :Path) :bool= trg.string.contains(data.string)
 # proc endsWith *(p :Path; A :char|string|Path) :bool= p.string.endsWith(A)
-# proc isFile *(input :string|Path) :bool=  (input.len < 32000) and (Path(input) != UndefinedPath) and (input.fileExists())
-#   ## @descr Returns true if the input is a file.
-#   ##  Returns false:
-#   ##  : If length of the path is too long
-#   ##  : If path == UndefinedPath
-#   ##  : If file does not exist
-# proc noModSince *(trg :string|Path; hours :SomeInteger) :bool=  ( times.getTime() - trg.lastMod ).inHours > hours
-#   ## @descr Returns true if the {@arg trg} file hasn't been modified in the last N {@arg hours}.
 #____________________________________________________
+
+
+#_______________________________________
+# @section Path Validate: Access Time
+#_____________________________
+proc noModSince *(trg :string|Path; hours :SomeInteger) :bool=  ( times.getTime() - trg.lastMod ).inHours > hours
+  ## @descr Returns true if the {@arg trg} file hasn't been modified in the last N {@arg hours}.
 
 
 #______________________________________
@@ -46,7 +47,14 @@ proc exists *(P :Path) :bool {.inline.}=
 # @section Path Validate: Fields
 #_____________________________
 func isKind *(P :Path; K :Kind) :bool {.inline.}=  P.kind == K
-func isFile *(P :Path) :bool {.inline.}=  P.isKind Kind.File
+#___________________
+# proc isFile *(input :string|Path) :bool=  (input.len < 32_000) and (Path(input) != UndefinedPath) and (input.fileExists())
+proc isFile *(P :Path) :bool {.inline.}=  P.isKind(Kind.File) or (P.path.len < 32_000 and os.fileExists(P.path))
+  ## @descr Returns true if the input is a file.
+  ##  Returns false:
+  ##  : If path == Dir | UndefinedPath
+  ##  : If the file exists but the length of the path is too long  (> 32_000)
+#___________________
 func isDir  *(P :Path) :bool {.inline.}=  P.isKind Kind.Dir
 #___________________
 func hasSub *(P :Path) :bool {.inline.}=
@@ -54,10 +62,13 @@ func hasSub *(P :Path) :bool {.inline.}=
   of SomePath : P.sub.string != ""
   else        : false
 #___________________
-func hasExt *(P :Path) :bool {.inline.}=
+const NonExtSuffixes = [".x64"]
+func hasExt *(P :Path) :bool=
   case P.kind
-  of Kind.File : P.ext != ""
-  else         : false
+  of Kind.File     :
+    if P.ext == "" : return false
+    else           : return not NonExtSuffixes.anyIt( P.path.endsWith(it) )  # none of the NonExtSuffixes match the end of P.path
+  else             : return false
 
 
 #______________________________________
