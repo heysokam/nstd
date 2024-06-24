@@ -65,6 +65,7 @@ proc glob *(
     rec     : bool              = false;
     filters : openArray[string] = @[];
   ) :PathList=
+  ## @descr
   ##  Globs every file in the {@arg P} folder that has the given ext.
   ##  {@arg ext}     Extension to search for.  (default: `.c`)
   ##  {@arg rec}     Recursive search in all folders and subfolders when true. Default: `false`

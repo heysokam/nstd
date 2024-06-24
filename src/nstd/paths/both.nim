@@ -7,8 +7,9 @@
 from std/os import nil
 import std/importutils as imp
 # @deps n*std
-import ../errors
 import ../strings
+import ../errors
+from ../markers import unreachable
 # @deps n*std.paths
 import ./types {.all.} as paths
 imp.privateAccess(paths.Path)
@@ -19,7 +20,6 @@ import ./core/access
 
 #_______________________________________
 # TODO:
-# proc copyDirWithPermissions *(a,b :Path; ignorePermissionErrors = true) :void {.borrow.}
 # proc replace *(trg :Path; A,B :string|Path) :Path= trg.string.replace(A.string, B.string).Path
 #_______________________________________
 
@@ -50,4 +50,29 @@ proc chgDir *(
     sub= if sub != "": sub else: P.sub.string
     ) # << create.path(P.dir, ... )
   else : PathError.trigger &"Tried to change the `dir` of an invalid Path:  {P}"
+#___________________
+proc chgDir *(
+    P    : Path;
+    to   : Dir;
+    sub  : string= "";
+  ) :Path {.inline.}=
+  ## @descr
+  ##  Returns a new Path, based on {@arg P}, with its directory changed to {@arg to}.
+  ##  Will change {@arg P.sub} to {@arg sub} if it is provided. Otherwise it will use {@arg to.sub}
+  if sub != "" : result = P.chgDir(to.dir, sub)
+  else         : result = P.chgDir(to.dir, to.sub)
+
+
+#_______________________________________
+# @section Paths: Files+Folders functionality
+#_____________________________
+proc copyWithPermissions *(
+    src                    : Path;
+    trg                    : Path;
+    ignorePermissionErrors : bool = true;
+  ) :void {.inline.}=
+  case src.kind
+  of Kind.File : os.copyFileWithPermissions(src.path, trg.path, ignorePermissionErrors)
+  of Kind.Dir  : os.copyDirWithPermissions(src.path, trg.path, ignorePermissionErrors)
+  else         : unreachable
 
