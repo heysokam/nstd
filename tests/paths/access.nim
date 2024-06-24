@@ -4,9 +4,8 @@
 # @deps All Tests
 include ../base
 # @deps std
-from std/os import nil
+from std/os import `/`
 import std/importutils as imp
-from std/paths as std import `==`, `/`
 # @deps n*std.paths
 import nstd/paths/types {.all.} as paths
 imp.privateAccess(paths.Path)

@@ -4,7 +4,7 @@
 ## @fileoverview Path Types
 #___________________________|
 # @deps std
-from std/os import nil
+from std/os import `/`
 from std/paths as std import `/`, addFileExt
 # @deps n*std
 from ../errors import trigger
@@ -65,14 +65,23 @@ func newDir *(
 #___________________
 func newFile *(
     dir  : string|std.Path;
+    name : string|std.Path;
+    ext  : string;
+    sub  : string|std.Path;
+  ) :Path=
+  result        = Path(kind: Kind.File)
+  result.dir_p  = when dir  is std.Path: dir  else: std.Path dir
+  result.sub_p  = when sub  is std.Path: sub  else: std.Path sub
+  result.name_p = when name is std.Path: name else: std.Path name
+  result.ext_p  = ext
+#___________________
+func newFile *(
+    dir  : string|std.Path;
     base : string|std.Path;
     sub  : string|std.Path = std.Path"";
   ) :Path=
-  result        = Path(kind: Kind.File)
-  result.dir_p  = when dir is std.Path: dir else: std.Path dir
-  result.sub_p  = when sub is std.Path: sub else: std.Path sub
-  result.name_p = std.Path os.splitFile(when base is Path: base.string else: base).name
-  result.ext_p  = os.splitFile(when base is Path: base.string else: base).ext
+  let base = os.splitFile(base)
+  result = newFile(dir, base.dir/base.name, base.ext, sub)
 #___________________
 func newEmpty *[T :Path|Fil|Dir](_:typedesc[T]) :T {.inline.}=  UndefinedPath
 

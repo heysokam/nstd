@@ -17,9 +17,9 @@ imp.privateAccess(paths.Path)
 #_____________________________
 # Test Data: Generic
 const T * = (
-  Dir      : std.Path"/path/to/dir",
-  Sub      : std.Path"some/sub",
-  Name     : std.Path"filename",
+  Dir      : "/path/to/dir",
+  Sub      : "some/sub",
+  Name     : "filename",
   Ext      : ".ext",
   Handle   : nil.File,
   Mode     : fmAppend,
@@ -27,15 +27,15 @@ const T * = (
 const Hello * = (
   Data   : "hello\n",
   Path   : Path.new(
-    dir  = std.Path thisDir(),
+    dir  = std.Path thisDir().dir,
     base = std.Path("hellofile"&".ext"),
     ), # << Path.new(... )
   ) # << Hello = ( ... )
 const Dummy * = (
-  Dir     : thisDir()/"dummy",
+  Dir     : thisDir().dir/"dummy",
   Path    : Path(kind: paths.Kind.Dir,
-    dir_p : std.Path(thisDir()),
-    sub_p : std.Path"dummy"
+    dir_p : std.Path thisDir().dir,
+    sub_p : std.Path "dummy",
     ), # << Path(kind: paths.Kind.Dir, ... )
   ) # << Dummy = ( ... )
 #___________________
@@ -49,7 +49,7 @@ const testDir * = Path.new(
 const testFile * = Path.new(
   dir  = T.Dir,
   sub  = T.Sub,
-  base = std.Path T.Name.string&T.Ext,
+  base = T.Name&T.Ext,
   ) # << Path(kind: paths.Kind.File, ... )
 #___________________
 # Test Data: PathHandle

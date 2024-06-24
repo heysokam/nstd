@@ -1,5 +1,9 @@
+# Files
+func changeExt *(P :Path; ext :string) :Path=
+func stripExt *(P :Path) :Path=
+
 # Both
-# proc chgDir *(
+proc chgDir *(
 
 # List
 func join *(
@@ -7,4 +11,9 @@ proc chgDir *(
 func shouldSkip (filters :openArray[string]; file :string) :bool=
 proc glob *(
 proc glob *(
+
+
+# Operators
+func `/` (P :Path; S :string) :Path=
+func `/` (S :string; P :Path) :Path=
 

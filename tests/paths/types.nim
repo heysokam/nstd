@@ -42,8 +42,8 @@ suite "Paths: Types":
   test "Object Fields: Dir":
     # Check Dir fields
     check testDir.kind is paths.Kind
-    check testDir.dir  is std.Path
-    check testDir.sub  is std.Path
+    check testDir.dir  is string
+    check testDir.sub  is string
     # Should not be able to access File fields
     expect PathError: discard testDir.name
     expect PathError: discard testDir.ext
@@ -51,9 +51,9 @@ suite "Paths: Types":
   test "Object Fields: File":
     # Check File fields
     check testFile.kind is paths.Kind
-    check testFile.dir  is std.Path
-    check testFile.sub  is std.Path
-    check testFile.name is std.Path
+    check testFile.dir  is string
+    check testFile.sub  is string
+    check testFile.name is string
     check testFile.ext  is string
   #_____________________________
   test "Data: Undefined":
