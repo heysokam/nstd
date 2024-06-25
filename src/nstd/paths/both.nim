@@ -19,12 +19,6 @@ import ./core/access
 
 
 #_______________________________________
-# TODO:
-# proc replace *(trg :Path; A,B :string|Path) :Path= trg.string.replace(A.string, B.string).Path
-#_______________________________________
-
-
-#_______________________________________
 # @section Paths: Files+Folders functionality
 #_____________________________
 proc remove *(P :Path) :void {.inline.}=
@@ -61,6 +55,34 @@ proc chgDir *(
   ##  Will change {@arg P.sub} to {@arg sub} if it is provided. Otherwise it will use {@arg to.sub}
   if sub != "" : result = P.chgDir(to.dir, sub)
   else         : result = P.chgDir(to.dir, to.sub)
+#___________________
+proc replace *(P :Path; A,B :string) :Path=
+  if P.kind notin SomePath : PathError.trigger &"Tried to replace the contents of an invalid Path:  {P}"
+  result  = P.chgDir(
+    to  = P.dir.replace(A, B),
+    sub = P.sub.replace(A, B)
+    ) # << P.chgDir( .. )
+  case P.kind
+  of Kind.File :
+    result.name = result.name.replace(A,B)
+    result.ext  = result.ext.replace(A,B)
+  else: unreachable
+#___________________
+proc add *(P :Path; A :string) :Path=
+  ## @descr Adds a string at the end of {@arg P} Path, without applying any `/` separators
+  if P.kind notin SomePath : PathError.trigger &"Tried to add a new subpath to an invalid Path:  {P}"
+  result = P
+  case P.kind
+  of Kind.File :
+    if   P.ext  != "" : result.ext  = result.ext  & A
+    elif P.name != "" : result.name = result.name & A
+    else              : PathError.trigger &"Tried to add a new subpath to a file that doesn't have basename values:  {P}"
+  of Kind.Dir  :
+    if   P.sub != "" : result.sub = result.sub & A
+    elif P.dir != "" : result.dir = result.dir & A
+    else             : PathError.trigger &"Tried to add a new subpath to a folder that doesn't have dirSub values:  {P}"
+  else: unreachable
+
 
 
 #_______________________________________

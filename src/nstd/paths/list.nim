@@ -15,20 +15,6 @@ import ./core/create
 import ./both
 
 
-
-#____________________________________________________
-# TODO:
-# proc getFileList *(src :seq[DirFile]; dir :Path= cfg.srcDir; rel :bool= false) :seq[Path]=
-#   ## @descr
-#   ##  Returns {@arg src} as a list of paths
-#   ##  Will be relative to {@arg dir} when {@arg rel} is true
-#   for file in src:
-#     if rel : result.add file.path.relativePath(dir)
-#     else   : result.add file.path
-#____________________________________________________
-
-
-
 #_______________________________________
 # @section Path List Management
 #_____________________________

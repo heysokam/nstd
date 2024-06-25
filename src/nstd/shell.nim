@@ -76,10 +76,14 @@ proc cp *(src,trg :string|Path) :void=
 proc cpDir *(src,trg :string|Path; filter :openArray[string|Path]) :void=
   ## @descr Alternative {@link cpDir} that supports passing a list of {@arg filter} paths to ignore
   for it in src.walkDir:
-    if it.path in filter: continue
-    if   it.kind == pcFile : cp    it.path, trg/it.path.relativePath(src)
-    elif it.kind == pcDir  : cpDir it.path, trg
-    else: discard
+    when src is string:
+      if it.path in filter: continue
+      if   it.kind == pcFile : cp    it.path, trg/it.path.relativePath(src)
+      elif it.kind == pcDir  : cpDir it.path, trg
+      else: discard
+    else:
+      if it in filter: continue
+      cp it, it.relative(src).chgDir(trg)
 #___________________
 proc mv *(src,trg :string|Path) :void=
   when defined(nimscript) : mvFile(src, trg)
