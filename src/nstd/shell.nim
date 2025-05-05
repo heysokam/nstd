@@ -41,7 +41,7 @@ when not defined(nimscript):
   template withDir *(trg :string|Path; body :untyped)=
     let prev = paths.getCurrentDir()
     l.dbg "Temporarily entering folder  ", when trg is Path: trg.string else: trg
-    paths.setCurrentDir(when trg is Path: trg else: trg.string)
+    paths.setCurrentDir(when trg is Path: trg else: trg.Path)
     body  # Run the code inside the block
     l.dbg "Returning to folder  ", prev.string
     paths.setCurrentDir(prev)
