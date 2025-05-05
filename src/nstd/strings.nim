@@ -97,9 +97,13 @@ proc `$` *(s :CString) :string {.borrow.}
 #_______________________________________
 # @section Cstring Array tools
 #_____________________________
-type CstrArray * = distinct cstringArray
-proc new *(_:typedesc[CstrArray]; list :openArray[string]) :CstrArray=
-  allocCstringArray(list).CstrArray
-proc `=destroy` *(arr :var CstrArray) :void=
-  deallocCstringArray(arr.cstringArray)
+type CStringArray * = distinct cstringArray
+proc `=wasMoved` *(arr :var CStringArray) :void;
+proc `=copy` *(arr: var CStringArray; source: CStringArray) {.error.}
+proc `=destroy` *(arr :CStringArray) :void= deallocCstringArray(arr.cstringArray)
+proc `=wasMoved` *(arr: var CStringArray) :void= arr = nil.CStringArray
+proc create *(_:typedesc[CStringArray]; list :openArray[string]) :CStringArray= allocCstringArray(list).CStringArray
+proc toC *(list :openArray[string]) :cstringArray=
+  if list.len == 0: return nil.cstringArray
+  CStringArray.create(list).cstringArray
 
