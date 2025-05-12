@@ -49,10 +49,14 @@ proc getCLI *() :CLI=
 # @section Get specific Elements
 #_____________________________
 proc getArgs *() :seq[string]=  getCLI().args
+#___________________
 proc getArg  *(id :SomeInteger) :string=  getCLI().args[id]
-proc getOpt  *(opt :char|string) :bool=
-  ## Returns true if the given short option was passed in CLI
-  let cli = getCLI()
+#___________________
+proc getOpt  *(
+    cli : opts.CLI;
+    opt : char|string;
+  ) :bool=
+  ## @descr Returns true if the given short option was passed in CLI
   # Treat the input as a short option
   when opt is char:
     return $opt in cli.opts.short
@@ -68,7 +72,17 @@ proc getOpt  *(opt :char|string) :bool=
         if &"{ch}" notin cli.opts.short: return false  # Exit early when one of the characters of the `opt` input was not passed in cli
       return true                                      # All options of the `opt` input were passed in cli, so return true
 #___________________
-proc getLong *(cli :CLI; opt :string) :string=
+proc has *(
+    cli : opts.CLI;
+    opt : char|string;
+  ) :bool {.inline.}= cli.getOpt(opt)
+#___________________
+proc getOpt *(opt :char|string) :bool= opts.getCLI().getOpt(opt)
+#___________________
+proc getLong *(
+    cli : CLI;
+    opt : string;
+  ) :string=
   for key,values in cli.opts.long.pairs:
     if key == opt: return cli.opts.long[key][^1]
 #___________________
