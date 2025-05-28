@@ -11,4 +11,8 @@ const NimScript * = defined(nimscript) or defined(js)
 #____________________________________________________
 const debug *{.booldefine.}= defined(debug) or not (defined(release) or defined(danger))
   ## @descr True when neither `-d:release` or `-d:danger` are defined on CLI, or when `-d:debug` is defined
+const release *{.booldefine.}= defined(release) or defined(danger)
+  ## @descr True when `-d:release` or `-d:danger` are defined on CLI
+const danger *{.booldefine.}= defined(danger)
+  ## @descr True when `-d:danger` is defined on CLI
 
