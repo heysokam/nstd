@@ -7,8 +7,8 @@ import std/[ os,strformat ]
 #___________________
 # Package
 packageName   = "nstd"
-version       = "0.5.33"
-author        = "sOkam"
+version       = "0.5.34"
+author        = "heysokam"
 description   = "n*std | Non-Standard Nim stdlib Extensions"
 license       = "MIT"
 let gitURL    = &"https://github.com/heysokam/{packageName}"
@@ -23,9 +23,9 @@ let cacheDir = binDir/".cache"
 
 #___________________
 # Build requirements
-requires "nim >= 1.9.1"
-# requires "zippy"  # Silent requirement that must be managed by the user
-# requires "puppy"  # Silent requirement that must be managed by the user
+requires "nim >= 2.0.0"
+# requires "zippy"  # Silent requirement. Must be managed by the user
+# requires "puppy"  # Silent requirement. Must be managed by the user
 
 
 #________________________________________
