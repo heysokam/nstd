@@ -82,9 +82,10 @@ proc mv *(src,trg :string|Path) :void=
   else                    : os.moveFile(when src is Path: src.string else: src, when trg is Path: trg.string else: trg)
 #___________________
 proc md *(trg :string|Path) :void {.inline.}=
-  if os.dirExists(trg.string) : l.dbg &"Folder already exists. Not creating:  {trg}"; return
-  when defined(nimscript)     : mkDir(trg)
-  else                        : os.createDir( when trg is Path: trg.string else: trg )
+  let dir = when trg is Path: trg.string else: trg
+  if os.dirExists(dir)    : l.dbg &"Folder already exists. Not creating:  {dir}"; return
+  when defined(nimscript) : mkDir(dir)
+  else                    : os.createDir(dir)
 #___________________
 proc ln *(src,trg :string|Path; symbolic :bool= true) :void {.inline.}=
   ## @descr Creates a symbolic link from {@arg src} to {@arg trg}
